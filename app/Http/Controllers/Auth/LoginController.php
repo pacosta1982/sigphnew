@@ -36,42 +36,44 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout');
     }
 
-    public function username()
+    /*public function __construct()
     {
-        return 'user';
+        $this->middleware('guest')->except('logout');
     }
+
+
 
     protected function validateLogin(Request $request)
     {
         $this->validate($request, [
-            'user' => 'required|string',
+            'username' => 'required|string',
             'password' => 'required|string',
         ]);
-    }
+    }*/
 
-    protected function attemptLogin(Request $request)
+    /*protected function attemptLogin(Request $request)
     {
         //$this->guard()->login($user, true);
         //return view();
         //return redirect()->route($this->$redirectTo);
-        $credentials = $request->only($this->username(), 'password');
-        $username = $credentials[$this->username()];
-        $password = $credentials['password'];
+        $credentials = $request->only('username', 'password');
+        $username = $credentials['username'];
+        $password = bcrypt($credentials['password']);
         
-        $user = \App\User::where($this->username(), $username)
-                                ->where('passwd', md5($password))
+        $user = \App\User::where('username', $username)
+                                ->where('password', $password)
                                 ->first();
         if ($user) {
             $this->guard()->login($user, true);
             return true;
         }else{
-            return false;
+            return true;
         }
         
 
         
-    }
+    }*/
 }
