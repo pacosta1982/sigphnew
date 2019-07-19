@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-//use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Redirect;
+use Illuminate\Support\MessageBag;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -34,15 +37,16 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
 
     /*public function __construct()
     {
         $this->middleware('guest')->except('logout');
-    }
+    }*/
+
+    /*public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }*/
 
 
 
@@ -52,28 +56,33 @@ class LoginController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
-    }*/
+    }
 
-    /*protected function attemptLogin(Request $request)
+
+
+    protected function attemptLogin(Request $request)
     {
-        //$this->guard()->login($user, true);
-        //return view();
-        //return redirect()->route($this->$redirectTo);
-        $credentials = $request->only('username', 'password');
-        $username = $credentials['username'];
-        $password = bcrypt($credentials['password']);
-        
-        $user = \App\User::where('username', $username)
-                                ->where('password', $password)
-                                ->first();
-        if ($user) {
-            $this->guard()->login($user, true);
-            return true;
-        }else{
-            return true;
-        }
-        
 
-        
-    }*/
+        $credentials = $request->only('username', 'password');
+
+        if (Auth::attempt($credentials)) {
+
+            return true;
+
+        }
+
+
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        $request->session()->put('login_error', trans('auth.failed'));
+        throw ValidationException::withMessages(
+            [
+                'username' => [trans('auth.failed')],
+            ]
+        );
+    }
+
+
 }
