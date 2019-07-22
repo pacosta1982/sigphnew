@@ -476,7 +476,7 @@ return [
         // "es_MX" => "Spanish (Mexico)",
         // "es_NI" => "Spanish (Nicaragua)",
         // "es_PA" => "Spanish (Panama)",
-        // "es_PY" => "Spanish (Paraguay)",
+         "es_PY" => "Spanish (Paraguay)",
         // "es_PE" => "Spanish (Peru)",
         // "es_PR" => "Spanish (Puerto Rico)",
         // "es_ES" => "Spanish (Spain)",

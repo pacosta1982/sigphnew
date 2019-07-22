@@ -10,3 +10,8 @@
       <li><a href="{{ backpack_url('permission') }}"><i class="fa fa-key"></i> <span>Permissions</span></a></li>
     </ul>
   </li>
+<li><a href='{{ backpack_url('modality') }}'><i class='fa fa-tag'></i> <span>Modalidades</span></a></li>
+<li><a href='{{ backpack_url('land') }}'><i class='fa fa-tag'></i> <span>Terrenos</span></a></li>
+<li><a href='{{ backpack_url('document') }}'><i class='fa fa-tag'></i> <span>Documentos</span></a></li>
+<li><a href='{{ backpack_url('category') }}'><i class='fa fa-tag'></i> <span>Categorias</span></a></li>
+<li><a href='{{ backpack_url('assignment') }}'><i class='fa fa-tag'></i> <span>Asignaciones</span></a></li>
