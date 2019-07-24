@@ -8,4 +8,26 @@ class Project extends Model
 {
     //
     public $timestamps = false;
+
+    protected $fillable = ['name', 'phone', 'sat_id','state_id','city_id','land_id','modalidad_id'];
+
+    public function getSat() {
+        return $this->hasOne('App\Models\Sat','NucRuc','sat_id');
+    }
+
+    public function getLand() {
+        return $this->hasOne('App\Models\Land','id','land_id');
+    }
+
+    public function getState() {
+        return $this->hasOne('App\Models\Departamento','DptoId','state_id');
+    }
+
+    public function getCity() {
+        return $this->hasOne('App\Models\Distrito','CiuId','city_id');
+    }
+
+    public function getModality() {
+        return $this->hasOne('App\Models\Modality','id','modalidad_id');
+    }
 }

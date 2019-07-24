@@ -8,6 +8,8 @@ use App\Models\Land;
 use App\Models\Project;
 use App\Models\Departamento;
 use App\Models\Distrito;
+use App\Models\Modality;
+use App\Http\Requests\StoreProject;
 
 class ProjectController extends Controller
 {
@@ -45,8 +47,10 @@ class ProjectController extends Controller
         //
         $title="Crear Proyecto";
         $tierra = Land::all();
-        $departamentos = Departamento::orderBy('DptoNom', 'asc')->get();
-        return view('projects.create',compact('title','tierra','departamentos'));
+        $modalidad = Modality::all();
+        $departamentos = Departamento::where('DptoId','<',18)
+                        ->orderBy('DptoNom', 'asc')->get();
+        return view('projects.create',compact('title','tierra','departamentos','modalidad'));
     }
 
     /**
@@ -55,9 +59,12 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProject $request)
     {
         //
+        Project::create($request->all());
+        return redirect('projects/')->with('success', 'Se ha agregado un Nuevo Proyecto!');
+        //return $request;
     }
 
     /**
@@ -79,7 +86,15 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $title="Editar Proyecto";
+        $tierra = Land::all();
+        $modalidad = Modality::all();
+        $departamentos = Departamento::where('DptoId','<',18)
+                        ->orderBy('DptoNom', 'asc')->get();
+        $project=Project::find($id);
+        $cities = $this->distrito($project->state_id);
+        $cities = json_decode($cities, true);
+        return view('projects.create',compact('title','tierra','departamentos','modalidad','project','cities'));
     }
 
     /**
@@ -89,9 +104,19 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreProject $request, $id)
     {
         //
+        $project = Project::find($id);
+        $project->name = $request->input("name");
+        $project->phone = $request->input("phone");
+        $project->state_id = $request->input("state_id");
+        $project->city_id = $request->input("city_id");
+        $project->land_id = $request->input("land_id");
+        $project->modalidad_id = $request->input("modalidad_id");
+        $project->save();
+
+        return redirect('projects')->with('status', 'El proyecto fue actualizado!');
     }
 
     /**
