@@ -20,6 +20,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('projects', 'ProjectController');
+Route::post('projects/upload', 'ProjectController@upload');
+Route::post('projects/destroyfile', 'ProjectController@destroyfile');
 
 Route::get('projects/ajax/{state_id?}/cities', 'ProjectController@distrito');
 

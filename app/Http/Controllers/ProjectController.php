@@ -9,6 +9,10 @@ use App\Models\Project;
 use App\Models\Departamento;
 use App\Models\Distrito;
 use App\Models\Modality;
+use App\Models\Document;
+use App\Models\Documents;
+use App\Models\Assignment;
+
 use App\Http\Requests\StoreProject;
 
 class ProjectController extends Controller
@@ -19,6 +23,7 @@ class ProjectController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->photos_path = public_path('/images');
 
         //$this->statesInit = State::all()->sortBy("name");
 
@@ -75,7 +80,16 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $project=Project::find($id);
+        $title="Resumen Proyecto ".$project->name;
+        //dd($project);
+        $documentos = Documents::where('project_id',$id)->get();
+        $docproyecto = Assignment::where('land_id',$project->land_id)
+        ->whereNotIn('document_id', $documentos->pluck('document_id'))
+        ->where('category_id',1)
+        ->get();
+        //$docproyecto = $docproyecto->whereNotIn('document_id', $documentos->pluck('document_id'));
+        return view('projects.show',compact('title','project','documentos','docproyecto'));
     }
 
     /**
@@ -119,6 +133,30 @@ class ProjectController extends Controller
         return redirect('projects')->with('status', 'El proyecto fue actualizado!');
     }
 
+    public function upload(Request $request)
+    {
+    	/*$this->validate($request, [
+    		//'title' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);*/
+
+
+        $input['file_path'] = time().'.'.$request->image->getClientOriginalExtension();
+        $request->image->move(public_path('images/'.$request->project_id.'/project/general'), $input['file_path']);
+
+        $title = Document::find($request->title);
+        //return $title->name;
+        $input['title'] = $title->name;
+        $input['project_id'] = $request->project_id;
+        $input['document_id'] = $request->title;
+        Documents::create($input);
+
+        //return $input;
+
+    	return back()
+            ->with('success', 'Se ha agregado un Archivo!');
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -128,6 +166,22 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function destroyfile(Request $request)
+    {
+    	//Documents::find($id)->delete();
+        //return back()->with('error', 'Se ha eliminado el archivo!');
+        //return $request;
+        $file = Documents::find($request->delete_id);
+
+        $file_path = $this->photos_path . '/' . $file->project_id . '/project/general/' . $file->file_path;
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
+
+        Documents::find($request->delete_id)->delete();
+        return back()->with('error', 'Se ha eliminado el archivo!');
     }
 
     public function distrito($dptoid){

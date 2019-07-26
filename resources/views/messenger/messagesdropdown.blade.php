@@ -45,8 +45,8 @@
 
         <p>
             {{$user->name}} <br>
-             SAT: {{ $user->sat_ruc?$user->getSat->NucNomSat:"" }}
-          <small></small>
+
+          <small>SAT: {{ $user->sat_ruc?$user->getSat->NucNomSat:"" }}</small>
         </p>
       </li>
       <!-- Menu Body -->

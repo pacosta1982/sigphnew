@@ -97,7 +97,7 @@
 
 @stop
 @section('js')
-    <script> console.log('Hi!'); </script>
+
     <script type="text/javascript">
     $('select[name="state_id"]').on('change', function() {
                 var stateID = $(this).val();
