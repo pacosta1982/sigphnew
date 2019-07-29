@@ -51,7 +51,7 @@
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="{!! action('ProjectController@show', ['id'=>$project->id]) !!}">Ver</a></li>
                           <li><a href="{!! action('ProjectController@edit', ['id'=>$project->id]) !!}">Editar</a></li>
-                          <li><a href="#">Postulantes</a></li>
+                          <li><a href="{!! action('PostulantesController@index', ['id'=>$project->id]) !!}">Postulantes</a></li>
                         </ul>
                       </div>
         </td>

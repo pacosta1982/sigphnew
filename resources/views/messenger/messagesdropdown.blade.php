@@ -42,10 +42,8 @@
       <!-- User image -->
       <li class="user-header">
         <img src="{{ Gravatar::get($user->email) }}" class="img-circle" alt="User Image">
-
         <p>
             {{$user->name}} <br>
-
           <small>SAT: {{ $user->sat_ruc?$user->getSat->NucNomSat:"" }}</small>
         </p>
       </li>

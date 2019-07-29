@@ -128,6 +128,8 @@ class ProjectController extends Controller
         $project->city_id = $request->input("city_id");
         $project->land_id = $request->input("land_id");
         $project->modalidad_id = $request->input("modalidad_id");
+        $project->leader_name = $request->input("leader_name");
+        $project->localidad = $request->input("localidad");
         $project->save();
 
         return redirect('projects')->with('status', 'El proyecto fue actualizado!');

@@ -26,10 +26,10 @@
                         <input type="text" class="form-control" name="name" value="{{ old('name',isset($project['name'])?$project['name']:'') }}"  placeholder="Ingrese Nombre del Proyecto">
                         {!! $errors->first('name','<span class="help-block">:message</span>') !!}
                     </div>
-                    <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
-                        <label for="exampleInputPassword1">Telefono</label>
-                        <input type="text" class="form-control" name="phone" value="{{ old('phone',isset($project['phone'])?$project['phone']:'') }}" placeholder="Ingrese Telefono de Contacto">
-                        {!! $errors->first('phone','<span class="help-block">:message</span>') !!}
+                    <div class="form-group {{ $errors->has('leader_name') ? 'has-error' : '' }}">
+                        <label for="exampleInputPassword1">Nombre del Lider del Grupo</label>
+                        <input type="text" class="form-control" name="leader_name" value="{{ old('leader_name',isset($project['leader_name'])?$project['leader_name']:'') }}" placeholder="Ingrese Nombre del Lider del Grupo">
+                        {!! $errors->first('leader_name','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('state_id') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Departamento</label>
@@ -42,6 +42,11 @@
                                 @endforeach
                         </select>
                         {!! $errors->first('state_id','<span class="help-block">:message</span>') !!}
+                    </div>
+                    <div class="form-group {{ $errors->has('localidad') ? 'has-error' : '' }}">
+                        <label>Localidad</label>
+                        <input type="text" class="form-control" name="localidad" value="{{ old('localidad',isset($project['localidad'])?$project['localidad']:'') }}"  placeholder="Ingrese Localidad">
+                        {!! $errors->first('localidad','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('modalidad_id') ? 'has-error' : '' }}">
                     <label for="exampleInputPassword1">Modalidad</label>
@@ -64,18 +69,12 @@
                         <input type="text" class="form-control" value="{{ $user->sat_ruc?$user->getSat->NucNomSat:"" }}" readonly>
                         {!! $errors->first('sat_id','<span class="help-block">:message</span>') !!}
                     </div>
-                    <div class="form-group {{ $errors->has('land_id') ? 'has-error' : '' }}">
-                        <label for="exampleInputPassword1">Tipo Terreno</label>
-                        <select class="form-control required" name="land_id">
-                            <option value="">Selecciona el tipo de Terreno</option>
-                                @foreach($tierra as $key=>$name)
-                                    <option value="{{$name->id}}"
-                                        {{ old('land_id',isset($project['land_id'])?$project['land_id']:'') == $name->id ? 'selected' : '' }}
-                                        >{{ $name->name }}</option>
-                                @endforeach
-                        </select>
-                        {!! $errors->first('land_id','<span class="help-block">:message</span>') !!}
+                    <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
+                        <label for="exampleInputPassword1">Telefono</label>
+                        <input type="text" class="form-control" name="phone" value="{{ old('phone',isset($project['phone'])?$project['phone']:'') }}" placeholder="Ingrese Telefono de Contacto">
+                        {!! $errors->first('phone','<span class="help-block">:message</span>') !!}
                     </div>
+
                     <div class="form-group {{ $errors->has('city_id') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Distrito</label>
                         <select class="form-control required" name="city_id">
@@ -87,6 +86,19 @@
                             @endif
                         </select>
                         {!! $errors->first('city_id','<span class="help-block">:message</span>') !!}
+                    </div>
+
+                    <div class="form-group {{ $errors->has('land_id') ? 'has-error' : '' }}">
+                        <label for="exampleInputPassword1">Tipo Terreno</label>
+                        <select class="form-control required" name="land_id">
+                            <option value="">Selecciona el tipo de Terreno</option>
+                                @foreach($tierra as $key=>$name)
+                                    <option value="{{$name->id}}"
+                                        {{ old('land_id',isset($project['land_id'])?$project['land_id']:'') == $name->id ? 'selected' : '' }}
+                                        >{{ $name->name }}</option>
+                                @endforeach
+                        </select>
+                        {!! $errors->first('land_id','<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
           </div>

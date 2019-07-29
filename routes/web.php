@@ -25,6 +25,9 @@ Route::post('projects/destroyfile', 'ProjectController@destroyfile');
 
 Route::get('projects/ajax/{state_id?}/cities', 'ProjectController@distrito');
 
+//Postulantes
+Route::get('projects/{id}/postulantes', 'PostulantesController@index');
+
 //Mensajes
 Route::group(['prefix' => 'messages'], function () {
     Route::get('/', ['as' => 'messages.index', 'uses' => 'MessagesController@index']);

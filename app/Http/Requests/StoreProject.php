@@ -32,6 +32,9 @@ class StoreProject extends FormRequest
 
             'land_id' => 'required',
             'city_id' => 'required',
+            'leader_name' => 'required',
+            'localidad' => 'required',
+
 
             //'body' => 'required',
         ];
@@ -47,6 +50,8 @@ class StoreProject extends FormRequest
             'sat_id.required' => 'El campo Sat es Requerido',
             'land_id.required'  => 'El campo Tipo Terreno es Requerido',
             'city_id.required'  => 'El campo Ciudad es Requerido',
+            'leader_name.required'  => 'El campo Nombre del Lider es Requerido',
+            'localidad.required'  => 'El campo Localidad es Requerido',
 
         ];
     }
