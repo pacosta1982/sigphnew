@@ -24,7 +24,11 @@ class User extends Authenticatable
      * @var array
      */
     //protected $table = 'usr';
-
+    public function getDateFormat()
+    {
+        return 'Y-d-m H:i:s.v';
+    }
+    
     protected $connection = 'sqlsrv';
 
     protected $rememberTokenName = false;

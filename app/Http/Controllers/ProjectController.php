@@ -12,6 +12,7 @@ use App\Models\Modality;
 use App\Models\Document;
 use App\Models\Documents;
 use App\Models\Assignment;
+use App\User;
 
 use App\Http\Requests\StoreProject;
 
@@ -37,7 +38,11 @@ class ProjectController extends Controller
     public function index()
     {
         $title="Lista de Proyectos";
-        $projects = Project::all();
+
+        $id = Auth::user()->id;
+        $currentuser = User::find($id);
+
+        $projects = Project::where('sat_id', $currentuser->sat_ruc)->get();
         //Mapper::map(-24.3697635, -56.5912129, ['zoom' => 6, 'type' => 'ROADMAP']);
         return view('projects.index',compact('projects','title'));
     }

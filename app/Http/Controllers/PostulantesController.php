@@ -81,7 +81,7 @@ class PostulantesController extends Controller
                     $apellido = $datospersona->obtenerPersonaPorNroCedulaResponse->return->apellido;
                     $cedula = $datospersona->obtenerPersonaPorNroCedulaResponse->return->cedula;
                     $sexo = $datospersona->obtenerPersonaPorNroCedulaResponse->return->sexo;
-                    $fecha = date('Y-m-d', strtotime($datospersona->obtenerPersonaPorNroCedulaResponse->return->fechNacim));
+                    $fecha = date('Y-d-m H:i:s.v', strtotime($datospersona->obtenerPersonaPorNroCedulaResponse->return->fechNacim));
                     $nac = $datospersona->obtenerPersonaPorNroCedulaResponse->return->nacionalidadBean;
                     $est = $datospersona->obtenerPersonaPorNroCedulaResponse->return->estadoCivil;
                     //$prof = $datospersona->obtenerPersonaPorNroCedulaResponse->return->profesionBean;
