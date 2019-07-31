@@ -27,6 +27,11 @@ Route::get('projects/ajax/{state_id?}/cities', 'ProjectController@distrito');
 
 //Postulantes
 Route::get('projects/{id}/postulantes', 'PostulantesController@index');
+Route::post('projects/{id}/postulantes/create', 'PostulantesController@create');
+Route::post('savepostulante', 'PostulantesController@store');
+Route::get('projects/{id}/postulantes/{idpostulante}', 'PostulantesController@show');
+Route::post('postulantes/upload', 'PostulantesController@upload');
+Route::post('postulantes/destroyfile', 'PostulantesController@destroyfile');
 
 //Mensajes
 Route::group(['prefix' => 'messages'], function () {

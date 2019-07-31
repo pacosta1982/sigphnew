@@ -37,6 +37,7 @@
                 <p class="text-center">
 
                 </p>
+
               </div>
           </div>
         </div>
@@ -47,73 +48,85 @@
     <div class="col-md-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">Postulantes</h3>
+          <h3 class="box-title"><i class="fa fa-users"></i> Postulantes</h3>
+          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default">
+            <i class="fa fa-plus-circle"></i> Agregar Postulante
+            </button>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
           <table class="table">
-            <tbody><tr>
-              <th style="width: 10px">#</th>
-              <th>Task</th>
-              <th>Progress</th>
-              <th style="width: 40px">Label</th>
-            </tr>
+            <tbody>
             <tr>
-              <td>1.</td>
-              <td>Update software</td>
-              <td>
-                <div class="progress progress-xs">
-                  <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                </div>
-              </td>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Cédula</th>
+              <th>Edad</th>
+              <th>Ingreso</th>
+              <th>Avance</th>
+              <th>Acciones</th>
+            </tr>
+            @foreach($postulantes as $key=>$post)
+            <tr>
+              <td>{{$key+1}}</td>
+              <td>{{ $post->postulante_id?$post->getPostulante->first_name:"" }} {{ $post->postulante_id?$post->getPostulante->last_name:"" }}</td>
+              <td>{{ $post->postulante_id?$post->getPostulante->cedula:"" }} </td>
+              <td>{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
+              <td>{{ $post->postulante_id?$post->getPostulante->ingreso:"" }} </td>
               <td><span class="badge bg-red">55%</span></td>
-            </tr>
-            <tr>
-              <td>2.</td>
-              <td>Clean database</td>
               <td>
-                <div class="progress progress-xs">
-                  <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                </div>
+                    <div class="btn-group">
+                            <button type="button" class="btn btn-info">Acciones</button>
+                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                              <span class="caret"></span>
+                              <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+                              <li><a href="{!! action('PostulantesController@show', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Ver</a></li>
+                              <li><a href="#">Eliminar</a></li>
+                            </ul>
+                          </div>
               </td>
-              <td><span class="badge bg-yellow">70%</span></td>
             </tr>
-            <tr>
-              <td>3.</td>
-              <td>Cron job running</td>
-              <td>
-                <div class="progress progress-xs progress-striped active">
-                  <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                </div>
-              </td>
-              <td><span class="badge bg-light-blue">30%</span></td>
-            </tr>
-            <tr>
-              <td>4.</td>
-              <td>Fix and squish bugs</td>
-              <td>
-                <div class="progress progress-xs progress-striped active">
-                  <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                </div>
-              </td>
-              <td><span class="badge bg-green">90%</span></td>
-            </tr>
-          </tbody></table>
+            @endforeach
+          </tbody>
+        </table>
         </div>
         <!-- /.box-body -->
         <div class="box-footer clearfix">
-          <ul class="pagination pagination-sm no-margin pull-right">
-            <li><a href="#">«</a></li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">»</a></li>
-          </ul>
+
         </div>
       </div>
-
     </div>
-
   </div>
+<!-- Modal Cedula -->
+
+<div class="modal fade" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Ingrese Número de Cédula</h4>
+        </div>
+        <div class="modal-body">
+            <form action="{{ action('PostulantesController@create', ['id' => $project->id ]) }}" method="POST">
+                {{ csrf_field() }}
+                <div class="form-group {{ $errors->has('state_id') ? 'has-error' : '' }}">
+                    <input type="text" class="form-control" name="cedula"  value="">
+                    {!! $errors->first('state_id','<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+            </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
 
 @stop
