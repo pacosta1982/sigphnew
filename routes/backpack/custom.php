@@ -16,4 +16,5 @@ Route::group([
     CRUD::resource('document', 'DocumentCrudController');
     CRUD::resource('category', 'CategoryCrudController');
     CRUD::resource('assignment', 'AssignmentCrudController');
+    CRUD::resource('usuarios', 'UserCrudController');
 }); // this should be the absolute last line of this file

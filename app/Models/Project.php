@@ -22,7 +22,7 @@ class Project extends Model
     protected $fillable = ['name', 'phone', 'sat_id','state_id','city_id','land_id','modalidad_id','localidad','leader_name'];
 
     public function getSat() {
-        return $this->hasOne('App\Models\Sat','NucRuc','sat_id');
+        return $this->hasOne('App\Models\Sat','NucCod','sat_id');
     }
 
     public function getLand() {

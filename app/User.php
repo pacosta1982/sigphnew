@@ -28,13 +28,13 @@ class User extends Authenticatable
     {
         return 'Y-d-m H:i:s.v';
     }
-    
+
     protected $connection = 'sqlsrv';
 
     protected $rememberTokenName = false;
 
     protected $fillable = [
-        'name','email','username','password'
+        'name','email','username','password','sat_ruc'
     ];
 
 
@@ -56,7 +56,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getSat() {
-        return $this->hasOne('App\Models\Sat','NucRuc','sat_ruc');
+    public function getsat() {
+        return $this->hasOne('App\Models\Sat','NucCod','sat_ruc');
     }
+
 }
