@@ -16,3 +16,4 @@
 <li><a href='{{ backpack_url('category') }}'><i class='fa fa-tag'></i> <span>Categorias</span></a></li>
 <li><a href='{{ backpack_url('assignment') }}'><i class='fa fa-tag'></i> <span>Asignaciones</span></a></li>
 <li><a href='{{ backpack_url('usuarios') }}'><i class='fa fa-tag'></i> <span>Usuarios</span></a></li>
+<li><a href='{{ backpack_url('project_type') }}'><i class='fa fa-tag'></i> <span>Tipos Proyectos</span></a></li>
