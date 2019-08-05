@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Backpack\CRUD\CrudTrait;
 
-class Assignment extends Model
+class Land_project extends Model
 {
     use CrudTrait;
 
@@ -15,37 +15,27 @@ class Assignment extends Model
     |--------------------------------------------------------------------------
     */
 
-    protected $table = 'assignments';
+    protected $table = 'land_has_project_type';
     // protected $primaryKey = 'id';
-    public $timestamps = false;
+    // public $timestamps = false;
     // protected $guarded = ['id'];
-    protected $fillable = ['document_id','category_id','project_type_id','stage_id'];
+    protected $fillable = ['land_id','project_type_id'];
     // protected $hidden = [];
     // protected $dates = [];
+
+    public function tierra() {
+        return $this->hasOne('App\Models\Land','id','land_id');
+    }
+
+    public function tipo() {
+        return $this->hasOne('App\Models\Project_type','id','project_type_id');
+    }
 
     /*
     |--------------------------------------------------------------------------
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
-
-    public function tipo() {
-        return $this->hasOne('App\Models\Project_type','id','project_type_id');
-    }
-
-    public function stage() {
-        return $this->hasOne('App\Models\Stage','id','stage_id');
-    }
-
-    public function document() {
-        return $this->hasOne('App\Models\Document','id','document_id');
-    }
-
-    public function category() {
-        return $this->hasOne('App\Models\Category','id','category_id');
-    }
-
-
 
     /*
     |--------------------------------------------------------------------------

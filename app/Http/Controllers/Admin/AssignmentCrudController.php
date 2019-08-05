@@ -25,17 +25,17 @@ class AssignmentCrudController extends CrudController
         */
         $this->crud->setModel('App\Models\Assignment');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/assignment');
-        $this->crud->setEntityNameStrings('assignment', 'assignments');
+        $this->crud->setEntityNameStrings('asignaciones', 'Asignaciones');
         //$this->crud->enableExportButtons();
         //$this->crud->disableResponsiveTable();
         $this->crud->enableResponsiveTable();
 
         $this->crud->addField(
             [  // Select
-                'label' => "Tipo Terreno",
+                'label' => "Tipo Proyecto",
                 'type' => 'select',
-                'name' => 'land_id', // the db column for the foreign key
-                'entity' => 'land', // the method that defines the relationship in your Model
+                'name' => 'project_type_id', // the db column for the foreign key
+                'entity' => 'tipo', // the method that defines the relationship in your Model
                 'attribute' => 'name', // foreign key attribute that is shown to user
                 //'model' => "App\Models\QuestionCategory" // foreign key model
                 ]
@@ -63,13 +63,24 @@ class AssignmentCrudController extends CrudController
                 ]
         );
 
+        $this->crud->addField(
+            [  // Select
+                'label' => "Etapa",
+                'type' => 'select',
+                'name' => 'stage_id', // the db column for the foreign key
+                'entity' => 'stage', // the method that defines the relationship in your Model
+                'attribute' => 'name', // foreign key attribute that is shown to user
+                'model' => "App\Models\Stage" // foreign key model
+                ]
+        );
+
         $this->crud->addColumn([
-            'label' => "Tipo Terreno", // Table column heading
+            'label' => "Tipo Proyecto", // Table column heading
             'type' => "select",
-            'name' => 'land_id', // the column that contains the ID of that connected entity;
-            'entity' => 'land', // the method that defines the relationship in your Model
+            'name' => 'project_type_id', // the column that contains the ID of that connected entity;
+            'entity' => 'tipo', // the method that defines the relationship in your Model
             'attribute' => "name", // foreign key attribute that is shown to user
-            'model' => "App\Models\Land", // foreign key model
+            //'model' => "App\Models\Land", // foreign key model
          ]);
 
          $this->crud->addColumn([
@@ -89,6 +100,15 @@ class AssignmentCrudController extends CrudController
             'entity' => 'category', // the method that defines the relationship in your Model
             'attribute' => "name", // foreign key attribute that is shown to user
             'model' => "App\Models\Category", // foreign key model
+         ]);
+
+         $this->crud->addColumn([
+            'label' => "Fase", // Table column heading
+            'type' => "select",
+            'name' => 'stage_id', // the column that contains the ID of that connected entity;
+            'entity' => 'stage', // the method that defines the relationship in your Model
+            'attribute' => "name", // foreign key attribute that is shown to user
+            'model' => "App\Models\Stage", // foreign key model
          ]);
 
         /*

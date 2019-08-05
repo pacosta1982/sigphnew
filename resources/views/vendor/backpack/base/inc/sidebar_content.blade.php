@@ -17,3 +17,6 @@
 <li><a href='{{ backpack_url('assignment') }}'><i class='fa fa-tag'></i> <span>Asignaciones</span></a></li>
 <li><a href='{{ backpack_url('usuarios') }}'><i class='fa fa-tag'></i> <span>Usuarios</span></a></li>
 <li><a href='{{ backpack_url('project_type') }}'><i class='fa fa-tag'></i> <span>Tipos Proyectos</span></a></li>
+<li><a href='{{ backpack_url('modalidad_land') }}'><i class='fa fa-tag'></i> <span>Modalidad - Tierra</span></a></li>
+<li><a href='{{ backpack_url('land_project') }}'><i class='fa fa-tag'></i> <span>Tierra - Tipo Proyecto</span></a></li>
+<li><a href='{{ backpack_url('stage') }}'><i class='fa fa-tag'></i> <span>Etapas</span></a></li>

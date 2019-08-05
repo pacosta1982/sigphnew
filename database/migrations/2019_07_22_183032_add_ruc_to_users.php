@@ -26,7 +26,7 @@ class AddRucToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('ruc');
+            $table->dropColumn('sat_ruc');
         });
     }
 }
