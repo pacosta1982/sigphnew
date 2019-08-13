@@ -146,7 +146,7 @@ class ProjectController extends Controller
         $project->typology_id = $request->input("typology_id");
         $project->save();
 
-        return redirect('projects')->with('status', 'El proyecto fue actualizado!');
+        return redirect('projects')->with('success', 'El proyecto fue actualizado!');
     }
 
     public function upload(Request $request)

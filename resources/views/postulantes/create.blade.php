@@ -6,6 +6,7 @@
 <h1>{{ $title }}</h1>
 <ol class="breadcrumb">
 <li><a href="{{url('projects')}}"><i class="fa fa-home"></i>Inicio</a></li>
+<li><a href="{{url('projects/'.$project_id->id.'/postulantes')}}">Postulantes del Proyecto {{ $project_id->name }}</a></li>
 <li class="active"><a href="#">Agregar Postulante</a></li>
 </ol>
 @stop
@@ -13,14 +14,15 @@
 @section('content')
 
 <div class="box box-primary">
-    <form role="form" action="{{isset($project['id'])?action('PostulantesController@update',['id' => $project['id']]):action('PostulantesController@store') }}" method="post">
+    <form role="form" action="{{isset($postulante['id'])?action('PostulantesController@update',['id' => $postulante['id']]):action('PostulantesController@store') }}" method="post">
             @csrf
-            @if(isset($project['id']))
-                {!! method_field('patch') !!}
+            @if(isset($postulante['id']))
+                {!! method_field('post') !!}
             @endif
             <input type="text"  name="gender" value="{{ $sexo }}"  hidden>
             <input type="text"  name="project_id" value="{{ $project_id->id }}"  hidden>
             <input type="text"  name="grupo" value="{{ $project_id->name }}"  hidden>
+            <input type="text"  name="disc_id" value="{{ isset($disc['id'])?$disc['id']:'' }}"  hidden>
       <div class="box-body">
           <div class="row">
                 <div class="col-md-6">
@@ -41,17 +43,17 @@
                     </div>
                     <div class="form-group {{ $errors->has('localidad') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Localidad</label>
-                        <input type="text" class="form-control" required name="localidad" value="{{ old('localidad',isset($project['localidad'])?$project['localidad']:'') }}" placeholder="Ingrese Localidad">
+                        <input type="text" class="form-control" required name="localidad" value="{{ old('localidad',isset($postulante['localidad'])?$postulante['localidad']:'') }}" placeholder="Ingrese Localidad">
                         {!! $errors->first('localidad','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('address') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Dirección</label>
-                        <input type="text" required class="form-control" name="address" value="{{ old('localidad',isset($project['localidad'])?$project['localidad']:'') }}" placeholder="Ingrese Dirección">
+                        <input type="text" required class="form-control" name="address" value="{{ old('localidad',isset($postulante['address'])?$postulante['address']:'') }}" placeholder="Ingrese Dirección">
                         {!! $errors->first('address','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Telefono (Linea Baja)</label>
-                        <input type="text" required class="form-control" name="phone" value="{{ old('phone',isset($project['phone'])?$project['phone']:'') }}" placeholder="Ingrese telefono">
+                        <input type="text" required class="form-control" name="phone" value="{{ old('phone',isset($postulante['phone'])?$postulante['phone']:'') }}" placeholder="Ingrese telefono">
                         {!! $errors->first('phone','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group">
@@ -80,19 +82,19 @@
                     </div>
                     <div class="form-group {{ $errors->has('asentamiento') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Asentamiento</label>
-                        <input type="text" class="form-control" name="asentamiento" value="{{ old('asentamiento',isset($project['asentamiento'])?$project['asentamiento']:'') }}" placeholder="Ingrese Asentamiento">
+                        <input type="text" class="form-control" name="asentamiento" value="{{ old('asentamiento',isset($postulante['asentamiento'])?$postulante['asentamiento']:'') }}" placeholder="Ingrese Asentamiento">
                         {!! $errors->first('asentamiento','<span class="help-block">:message</span>') !!}
                     </div>
 
                     <div class="form-group {{ $errors->has('asentamiento') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Ingreso Mensual</label>
-                        <input type="number" required class="form-control" name="ingreso" value="{{ old('ingreso',isset($project['ingreso'])?$project['ingreso']:'') }}" placeholder="Ingrese el Ingreso Mensual">
+                        <input type="number" required class="form-control" name="ingreso" value="{{ old('ingreso',isset($postulante['ingreso'])?$postulante['ingreso']:'') }}" placeholder="Ingrese el Ingreso Mensual">
                         {!! $errors->first('ingreso','<span class="help-block">:message</span>') !!}
                     </div>
 
                     <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Telefono Movil (Celular)</label>
-                        <input type="text" required class="form-control" name="mobile" value="{{ old('mobile',isset($project['mobile'])?$project['mobile']:'') }}" placeholder="Ingrese Telefono Movil (Celular)">
+                        <input type="text" required class="form-control" name="mobile" value="{{ old('mobile',isset($postulante['mobile'])?$postulante['mobile']:'') }}" placeholder="Ingrese Telefono Movil (Celular)">
                         {!! $errors->first('mobile','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('land_id') ? 'has-error' : '' }}">
@@ -101,11 +103,11 @@
                             <option value="">Selecciona la Discapacidad</option>
                                 @foreach($discapacdad as $key=>$dis)
                                     <option value="{{$dis->id}}"
-                                        {{ old('typology_id',isset($project['typology_id'])?$project['typology_id']:'') == $dis->id ? 'selected' : '' }}
+                                        {{ old('typology_id',isset($disc['discapacidad_id'])?$disc['discapacidad_id']:'') == $dis->id ? 'selected' : '' }}
                                         >{{ $dis->name }}</option>
                                 @endforeach
                         </select>
-                        {!! $errors->first('typology_id','<span class="help-block">:message</span>') !!}
+                        {!! $errors->first('discapacidad_id','<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
           </div>

@@ -1,6 +1,8 @@
 <button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal-miembro">
     <i class="fa fa-plus-circle"></i> Nuevo Miembro
 </button>
+<br>
+<br>
 <div class="row">
     <div class="col-xs-12 table-responsive">
         <table class="table table-striped">
@@ -12,7 +14,6 @@
               <th class="text-center">Edad</th>
               <th>Parentesco</th>
               <th class="text-center">Ingreso</th>
-              <th class="text-center">Avance</th>
               <th class="text-center">Acciones</th>
             </tr>
             @foreach($miembros as $key=>$mi)
@@ -23,7 +24,6 @@
               <td class="text-center">{{ \Carbon\Carbon::parse($mi->miembro_id?$mi->getPostulante->birthdate:"")->age }} </td>
               <td>{{ $mi->miembro_id?$mi->getParentesco->name:"" }}</td>
               <td class="text-center">{{ number_format($mi->miembro_id?$mi->getPostulante->ingreso:"",0,".",".") }} </td>
-              <td class="text-center"><span class="badge bg-red">55%</span></td>
               <td class="text-center">
                     <div class="btn-group">
                             <button type="button" class="btn btn-info">Acciones</button>
@@ -32,7 +32,7 @@
                               <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu" role="menu">
-                              <li><a href="{!! action('PostulantesController@show', ['id'=>$project->id,'idpostulantes'=>$mi->postulante_id?$mi->getPostulante->id:""]) !!}">Ver</a></li>
+                              <li><a href="{!! action('PostulantesController@editmiembro', ['id'=>$project->id,'idpostulantes'=>$mi->postulante_id?$mi->getPostulante->id:""]) !!}">Editar</a></li>
                               <li><a href="#">Eliminar</a></li>
                             </ul>
                           </div>
@@ -41,8 +41,9 @@
             @endforeach
           </tbody>
         </table>
+        <br>
+        <br>
     </div>
-    <!-- /.col -->
   </div>
 
 <div class="modal fade" id="modal-miembro" style="display: none;">

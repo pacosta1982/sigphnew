@@ -6,7 +6,8 @@
 
 <ol class="breadcrumb">
 <li><a href="{{url('projects')}}"><i class="fa fa-home"></i>Inicio</a></li>
-<li class="active"><a href="#">Resumen Proyecto</a></li>
+<li><a href="{{url('projects/'.$project->id.'/postulantes')}}">Postulantes del Proyecto {{ $project->name }}</a></li>
+<li class="active"><a href="#">Resumen Postulante</a></li>
 </ol>
 <br>
 @stop

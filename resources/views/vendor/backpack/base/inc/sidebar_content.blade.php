@@ -31,8 +31,8 @@
                 <li><a href='{{ backpack_url('stage') }}'><i class='fa fa-tag'></i> <span>Etapas</span></a></li>
                 <li><a href='{{ backpack_url('typology') }}'><i class='fa fa-tag'></i> <span>Tipologias</span></a></li>
                 <li><a href='{{ backpack_url('parentesco') }}'><i class='fa fa-tag'></i> <span>Parentesco</span></a></li>
+                <li><a href='{{ backpack_url('discapacidad') }}'><i class='fa fa-tag'></i> <span>Discapacidad</span></a></li>
         </ul>
 </li>
 
 
-<li><a href='{{ backpack_url('discapacidad') }}'><i class='fa fa-tag'></i> <span>Discapacidad</span></a></li>

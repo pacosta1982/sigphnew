@@ -6,6 +6,7 @@
 <h1>{{ $title }}</h1>
 <ol class="breadcrumb">
     <li class="active"><a href="{{url('projects')}}"><i class="fa fa-home"></i>Inicio</a></li>
+    <li class="active"><a href="#">Postulantes del Proyecto {{ $project->name }}</a></li>
   </ol>
 @stop
 
@@ -74,7 +75,7 @@
               <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->cedula:"",0,".",".") }} </td>
               <td class="text-center">{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
               <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->ingreso:"",0,".",".") }} </td>
-              <td class="text-center">{{ $post->getMembers->count() }}</td>
+              <td class="text-center">{{ $post->getMembers->count() + 1 }}</td>
               <td class="text-center">
                     <div class="btn-group">
                             <button type="button" class="btn btn-info">Acciones</button>
@@ -84,6 +85,7 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                               <li><a href="{!! action('PostulantesController@show', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Ver</a></li>
+                              <li><a href="{!! action('PostulantesController@edit', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Editar</a></li>
                               <li><a href="#">Eliminar</a></li>
                             </ul>
                           </div>

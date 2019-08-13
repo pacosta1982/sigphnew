@@ -246,7 +246,7 @@ class PostulantesController extends Controller
 
         //return $request->all();
         //Postulante ::create($request->all());
-        return redirect('projects/'.$request->project_id.'/postulantes/'.$request->postulante_id)->with('success', 'Se ha agregado un nuevo Postulante!');
+        return redirect('projects/'.$request->project_id.'/postulantes/'.$request->postulante_id)->with('success', 'Se ha agregado un nuevo Miembro!');
         //return $request;
     }
 
@@ -267,13 +267,103 @@ class PostulantesController extends Controller
         return view('postulantes.show',compact('title','project','miembros','documentos','docproyecto','postulante'));
     }
 
+    public function edit($id,$idpostulante)
+    {
+        $title="Editar Postulante";
+        $project=Project::find($id);
+        $postulante=Postulante::find($idpostulante);
+        $nombre = $postulante->first_name;
+        $apellido = $postulante->last_name;
+        $cedula = $postulante->cedula;
+        $sexo = $postulante->gender;
+        $project_id = Project::find($id);
+        $nac = $postulante->nacionalidad;
+        $est = $postulante->marital_status;
+        $fecha = $postulante->birthdate;
+        $discapacdad = Discapacidad::all();
+        $disc = PostulanteHasDiscapacidad::where('postulante_id',$postulante->id)->first();
+
+        return view('postulantes.create',compact('title','project','postulante','apellido','cedula','sexo','project_id',
+                                                'nombre','nac','est','fecha','discapacdad','disc'));
+    }
+
+    public function editmiembro($id,$idpostulante)
+    {
+        $title="Editar Miembro";
+        $project=Project::find($id);
+        $postulante=Postulante::find($idpostulante);
+        $nombre = $postulante->first_name;
+        $apellido = $postulante->last_name;
+        $cedula = $postulante->cedula;
+        $sexo = $postulante->gender;
+        $project_id = Project::find($id);
+        $nac = $postulante->nacionalidad;
+        $est = $postulante->marital_status;
+        $fecha = $postulante->birthdate;
+        $discapacdad = Discapacidad::all();
+        $disc = PostulanteHasDiscapacidad::where('postulante_id',$postulante->id)->first();
+        $parentesco = Parentesco::all();
+        $parent = PostulanteHasBeneficiary::where('miembro_id',$postulante->id)->first();
+
+        return view('postulantes.ficha.createmiembro',compact('title','project','postulante','apellido','cedula','sexo','project_id',
+                                                'nombre','nac','est','fecha','discapacdad','disc','parentesco','parent'));
+    }
+
+    public function update(Request $request)
+    {
+        //
+        //return $request;
+        $postulante = Postulante::find($request->input("id"));
+        $postulante->localidad = $request->input("localidad");
+        $postulante->address = $request->input("address");
+        $postulante->cedula = $request->input("cedula");
+        $postulante->phone = $request->input("phone");
+        $postulante->asentamiento = $request->input("asentamiento");
+        $postulante->ingreso = $request->input("ingreso");
+        $postulante->mobile = $request->input("mobile");
+        $postulante->save();
+
+        $disc = PostulanteHasDiscapacidad::find($request->input("disc_id"));
+        $disc->discapacidad_id=$request->discapacidad_id;
+        $disc->save();
+
+
+
+
+
+
+        return redirect('projects/'.$request->input("project_id").'/postulantes')->with('success', 'El postulante fue actualizado!');
+    }
+
+    public function updatemiembro(Request $request)
+    {
+        //
+        //return $request;
+        $postulante = Postulante::find($request->input("id"));
+        $postulante->localidad = $request->input("localidad");
+        $postulante->address = $request->input("address");
+        $postulante->cedula = $request->input("cedula");
+        $postulante->phone = $request->input("phone");
+        $postulante->asentamiento = $request->input("asentamiento");
+        $postulante->ingreso = $request->input("ingreso");
+        $postulante->mobile = $request->input("mobile");
+        $postulante->save();
+
+        $disc = PostulanteHasDiscapacidad::find($request->input("disc_id"));
+        $disc->discapacidad_id=$request->discapacidad_id;
+        $disc->save();
+
+        $parent = PostulanteHasBeneficiary::find($request->input("parent_id"));
+        $parent->parentesco_id=$request->parentesco_id;
+        $parent->save();
+
+        return redirect('projects/'.$request->input("project_id").'/postulantes/'.$request->input("postulante_id"))->with('success', 'El miembro fue actualizado!');
+    }
+
+
+
     public function upload(Request $request)
     {
-    	/*$this->validate($request, [
-    		//'title' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);*/
-
 
         $input['file_path'] = time().'.'.$request->image->getClientOriginalExtension();
         $request->image->move(public_path('images/'.$request->project_id.'/project/general'), $input['file_path']);
@@ -293,9 +383,7 @@ class PostulantesController extends Controller
 
     public function destroyfile(Request $request)
     {
-    	//Documents::find($id)->delete();
-        //return back()->with('error', 'Se ha eliminado el archivo!');
-        //return $request;
+
         $file = PostulantesDocuments::find($request->delete_id);
 
         $file_path = $this->photos_path . '/' . $file->project_id . '/project/general/' . $file->file_path;

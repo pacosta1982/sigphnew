@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+/*Route::get('/', function () {
+    return view('home');
+});*/
+
+Route::get('/', 'ProjectController@index');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
 
 Route::resource('projects', 'ProjectController');
 Route::post('projects/upload', 'ProjectController@upload');
@@ -30,12 +33,16 @@ Route::get('projects/{id}/postulantes', 'PostulantesController@index');
 Route::post('projects/{id}/postulantes/create', 'PostulantesController@create');
 Route::post('savepostulante', 'PostulantesController@store');
 Route::get('projects/{id}/postulantes/{idpostulante}', 'PostulantesController@show');
+Route::get('projects/{id}/postulantes/{idpostulante}/edit', 'PostulantesController@edit');
+Route::post('editpostulante', 'PostulantesController@update');
 Route::post('postulantes/upload', 'PostulantesController@upload');
 Route::post('postulantes/destroyfile', 'PostulantesController@destroyfile');
 
 //Miembros
 Route::post('projects/{id}/postulantes/createmiembro', 'PostulantesController@createmiembro');
 Route::post('savemiembro', 'PostulantesController@storemiembro');
+Route::get('projects/{id}/postulantes/{idpostulante}/editmiembro', 'PostulantesController@editmiembro');
+Route::post('editmiembro', 'PostulantesController@updatemiembro');
 
 //Mensajes
 Route::group(['prefix' => 'messages'], function () {
