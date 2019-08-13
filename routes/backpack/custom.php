@@ -23,4 +23,6 @@ Route::group([
     CRUD::resource('stage', 'StageCrudController');
     CRUD::resource('typology', 'TypologyCrudController');
     CRUD::resource('project_tipologies', 'Project_tipologiesCrudController');
+    CRUD::resource('parentesco', 'ParentescoCrudController');
+    CRUD::resource('discapacidad', 'DiscapacidadCrudController');
 }); // this should be the absolute last line of this file

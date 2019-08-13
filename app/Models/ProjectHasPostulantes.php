@@ -15,4 +15,10 @@ class ProjectHasPostulantes extends Model
     public function getPostulante() {
         return $this->hasOne('App\Models\Postulante','id','postulante_id');
     }
+
+    public function getMembers() {
+        return $this->hasMany('App\Models\PostulanteHasBeneficiary', 'postulante_id', 'postulante_id');
+    }
+
+
 }

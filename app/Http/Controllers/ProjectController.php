@@ -12,6 +12,8 @@ use App\Models\Modality;
 use App\Models\Document;
 use App\Models\Documents;
 use App\Models\Assignment;
+use App\Models\Typology;
+use App\Models\Land_project;
 use App\User;
 
 use App\Http\Requests\StoreProject;
@@ -60,7 +62,8 @@ class ProjectController extends Controller
         $modalidad = Modality::all();
         $departamentos = Departamento::where('DptoId','<',18)
                         ->orderBy('DptoNom', 'asc')->get();
-        return view('projects.create',compact('title','tierra','departamentos','modalidad'));
+        $tipologias = Typology::all();
+        return view('projects.create',compact('title','tierra','departamentos','modalidad','tipologias'));
     }
 
     /**
@@ -72,6 +75,7 @@ class ProjectController extends Controller
     public function store(StoreProject $request)
     {
         //
+        //return $request;
         Project::create($request->all());
         return redirect('projects/')->with('success', 'Se ha agregado un Nuevo Proyecto!');
         //return $request;
@@ -87,14 +91,17 @@ class ProjectController extends Controller
     {
         $project=Project::find($id);
         $title="Resumen Proyecto ".$project->name;
+
+        $tipoproy = Land_project::where('land_id',$project->land_id)->first();
         //dd($project);
         $documentos = Documents::where('project_id',$id)->get();
-        $docproyecto = Assignment::where('land_id',$project->land_id)
+        $docproyecto = Assignment::where('project_type_id',$tipoproy->land_id)
         ->whereNotIn('document_id', $documentos->pluck('document_id'))
         ->where('category_id',1)
+        ->where('stage_id',1)
         ->get();
         //$docproyecto = $docproyecto->whereNotIn('document_id', $documentos->pluck('document_id'));
-        return view('projects.show',compact('title','project','documentos','docproyecto'));
+        return view('projects.show',compact('title','project','documentos','docproyecto','tipoproy'));
     }
 
     /**
@@ -113,7 +120,8 @@ class ProjectController extends Controller
         $project=Project::find($id);
         $cities = $this->distrito($project->state_id);
         $cities = json_decode($cities, true);
-        return view('projects.create',compact('title','tierra','departamentos','modalidad','project','cities'));
+        $tipologias = Typology::all();
+        return view('projects.create',compact('title','tierra','departamentos','modalidad','project','cities','tipologias'));
     }
 
     /**
@@ -135,6 +143,7 @@ class ProjectController extends Controller
         $project->modalidad_id = $request->input("modalidad_id");
         $project->leader_name = $request->input("leader_name");
         $project->localidad = $request->input("localidad");
+        $project->typology_id = $request->input("typology_id");
         $project->save();
 
         return redirect('projects')->with('status', 'El proyecto fue actualizado!');

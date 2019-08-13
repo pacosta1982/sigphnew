@@ -49,38 +49,31 @@
       <!-- /.col -->
     </div>
     <h4><strong>Documentos</strong></h4>
-    <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default">
-    <i class="fa fa-plus-circle"></i> Nuevo Documento
-    </button>
     <div class="row">
-      <div class="col-xs-12 table-responsive">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>Titulo</th>
-            <th class="text-center">Acciones</th>
-          </tr>
-          </thead>
-          <tbody>
-            @foreach($documentos as $doc)
-            <tr>
-            <td>{{$doc->title}}</td>
-            <td class="text-center" style="width: 220px">
-                <a href="{{asset('images/')}}/{{$project->id."/project/general/".$doc->file_path}}" target="_blank">
-                    <button class="btn btn-success" type="button"><i class="fa fa-download"></i> Descargar </button>
-                </a>
-                <button class="btn btn-danger feed-id" type="button" data-toggle="modal"
-                data-target="#modal-danger" data-id="{{ $doc->id }}" data-title="{{ $doc->title }}">
-                    <i class="fa fa-close"></i> Eliminar
-                </button>
-            </td>
-          </tr>
-            @endforeach
-          </tbody>
-        </table>
+        <div class="col-md-12">
+          <!-- Custom Tabs -->
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_1" data-toggle="tab">Miembros</a></li>
+              <li><a href="#tab_2" data-toggle="tab">Documentos</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+                @include('postulantes.ficha.miembros')
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_2">
+                @include('postulantes.ficha.documentos')
+              </div>
+
+            </div>
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->
+        </div>
+
       </div>
-      <!-- /.col -->
-    </div>
+
     <!-- /.row -->
   </section>
   <div class="modal fade" id="modal-default" style="display: none;">

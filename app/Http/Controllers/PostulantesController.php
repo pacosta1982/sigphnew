@@ -10,6 +10,13 @@ use App\Models\ProjectHasPostulantes;
 use App\Models\Document;
 use App\Models\PostulantesDocuments;
 use App\Models\Assignment;
+use App\Models\Land_project;
+use App\Models\Discapacidad;
+use App\Models\Parentesco;
+use App\Models\PostulanteHasDiscapacidad;
+use App\Models\PostulanteHasBeneficiary;
+
+use App\Http\Requests\StorePostulante;
 
 class PostulantesController extends Controller
 {
@@ -88,9 +95,11 @@ class PostulantesController extends Controller
                     $nroexp = $cedula;
                     $title="Agregar Postulante";
                     $project_id = Project::find($id);
+                    //$parentesco = Parentesco::all();
+                    $discapacdad = Discapacidad::all();
                         //var_dump($datospersona->obtenerPersonaPorNroCedulaResponse);
                     return view('postulantes.create',compact('nroexp','cedula','nombre','apellido','fecha','sexo',
-                    'nac','est','title','project_id'/*'parentesco','escolaridad','discapacidad','enfermedad','entidades'*/));
+                    'nac','est','title','project_id','discapacdad'/*,'escolaridad','discapacidad','enfermedad','entidades'*/));
                 }
 
                 //$nombre = $datos->nombres;
@@ -101,34 +110,143 @@ class PostulantesController extends Controller
             }
         }else{
 
-            //$nroexp = '';
-            //return view('home',compact('nroexp'));
             return redirect()->back()->with('error', 'Ingrese Cédula');
         }
-
-
-
-        //return view('home',compact('expediente','historial'));
 
         $title="Agregar Postulante";
         return view('postulantes.create',compact('title'));
     }
 
 
-    public function store(Request $request)
+    public function createmiembro(Request $request, $id){
+
+        if ($request->input('cedula')) {
+            $existe = Postulante::where('cedula',$request->input('cedula'))->get();
+            if($existe->count() >= 1){
+                //Session::flash('error', 'Ya existe el postulante!');
+                return redirect()->back()->with('error', 'Ya existe el postulante!');
+            }
+
+            $headers = [
+                'Content-Type' => 'application/json',
+                'Accept' => 'application/json'
+            ];
+
+            $GetOrder = [
+                'username' => 'senavitatconsultas',
+                'password' => 'S3n4vitat'
+            ];
+            $client = new client();
+            $res = $client->post('http://10.1.79.7:8080/mbohape-core/sii/security', [
+                'headers' => $headers,
+                'json' => $GetOrder,
+                'decode_content' => false
+            ]);
+            //var_dump((string) $res->getBody());
+            $contents = $res->getBody()->getContents();
+            $book = json_decode($contents);
+            //echo $book->token;
+            if($book->success == true){
+                //obtener la cedula
+                $headerscedula = [
+                    'Authorization' => 'Bearer '.$book->token,
+                    'Accept' => 'application/json',
+                    'decode_content' => false
+                ];
+                $cedula = $client->get('http://10.1.79.7:8080/frontend-identificaciones/api/persona/obtenerPersonaPorCedula/'.$request->input('cedula'), [
+                    'headers' => $headerscedula,
+                ]);
+                $datos=$cedula->getBody()->getContents();
+                $datospersona = json_decode($datos);
+                if(isset($datospersona->obtenerPersonaPorNroCedulaResponse->return->error)){
+                    //Flash::error($datospersona->obtenerPersonaPorNroCedulaResponse->return->error);
+                    //Session::flash('error', $datospersona->obtenerPersonaPorNroCedulaResponse->return->error);
+                    return redirect()->back()->with('error', $datospersona->obtenerPersonaPorNroCedulaResponse->return->error);
+                }else{
+                    $nombre = $datospersona->obtenerPersonaPorNroCedulaResponse->return->nombres;
+                    $apellido = $datospersona->obtenerPersonaPorNroCedulaResponse->return->apellido;
+                    $cedula = $datospersona->obtenerPersonaPorNroCedulaResponse->return->cedula;
+                    $sexo = $datospersona->obtenerPersonaPorNroCedulaResponse->return->sexo;
+                    $fecha = date('Y-d-m H:i:s.v', strtotime($datospersona->obtenerPersonaPorNroCedulaResponse->return->fechNacim));
+                    $nac = $datospersona->obtenerPersonaPorNroCedulaResponse->return->nacionalidadBean;
+                    $est = $datospersona->obtenerPersonaPorNroCedulaResponse->return->estadoCivil;
+                    //$prof = $datospersona->obtenerPersonaPorNroCedulaResponse->return->profesionBean;
+                    $nroexp = $cedula;
+                    $title="Agregar Miembro Familiar";
+                    $project_id = Project::find($id);
+                    $parentesco = Parentesco::all();
+                    $discapacdad = Discapacidad::all();
+                    $postulante = $request->postulante_id;
+                        //var_dump($datospersona->obtenerPersonaPorNroCedulaResponse);
+                    return view('postulantes.ficha.createmiembro',compact('nroexp','cedula','nombre','apellido','fecha','sexo',
+                    'nac','est','title','project_id','discapacdad','postulante','parentesco'/*,'escolaridad','discapacidad','enfermedad','entidades'*/));
+                }
+
+                //$nombre = $datos->nombres;
+                //echo $cedula->getBody()->getContents();
+            }else{
+                //Flash::success($book->message);
+                return redirect()->back();
+            }
+        }else{
+
+            return redirect()->back()->with('error', 'Ingrese Cédula');
+        }
+
+        $title="Agregar Postulante";
+        return view('postulantes.create',compact('title'));
+    }
+
+
+    public function store(StorePostulante $request)
     {
-        $input = $request->except(['_token','project_id']);
+
+
+        //return $request;
+
+        $input = $request->except(['_token','project_id','discapacidad_id']);
         $postulante = Postulante ::create($input);
 
         $proypostulante = new ProjectHasPostulantes();
         $proypostulante->project_id=$request->project_id;
         $proypostulante->postulante_id=$postulante->id;
         $proypostulante->save();
+
+
+
+        $postulantediscapacidad = new PostulanteHasDiscapacidad();
+        $postulantediscapacidad->discapacidad_id=$request->discapacidad_id;
+        $postulantediscapacidad->postulante_id=$postulante->id;
+        $postulantediscapacidad->save();
         //ProjectHasPostulantes::
 
         //return $request->all();
         //Postulante ::create($request->all());
         return redirect('projects/'.$request->project_id.'/postulantes')->with('success', 'Se ha agregado un nuevo Postulante!');
+        //return $request;
+    }
+
+    public function storemiembro(Request $request)
+    {
+        //return $request;
+        $input = $request->except(['_token','project_id','discapacidad_id','postulante_id']);
+        $postulante = Postulante ::create($input);
+
+        $miembro = new PostulanteHasBeneficiary();
+        $miembro->postulante_id=$request->postulante_id;
+        $miembro->miembro_id=$postulante->id;
+        $miembro->parentesco_id=$request->parentesco_id;
+        $miembro->save();
+
+        $postulantediscapacidad = new PostulanteHasDiscapacidad();
+        $postulantediscapacidad->discapacidad_id=$request->discapacidad_id;
+        $postulantediscapacidad->postulante_id=$postulante->id;
+        $postulantediscapacidad->save();
+        //ProjectHasPostulantes::
+
+        //return $request->all();
+        //Postulante ::create($request->all());
+        return redirect('projects/'.$request->project_id.'/postulantes/'.$request->postulante_id)->with('success', 'Se ha agregado un nuevo Postulante!');
         //return $request;
     }
 
@@ -138,13 +256,15 @@ class PostulantesController extends Controller
         $project = Project::find($id);
         $title="Resumen Postulante ";
         //dd($project);
+        $tipoproy = Land_project::where('land_id',$project->land_id)->first();
         $documentos = PostulantesDocuments::where('postulante_id',$idpostulante)->get();
-        $docproyecto = Assignment::where('land_id',$project->land_id)
+        $docproyecto = Assignment::where('project_type_id',$tipoproy->land_id)
         ->whereNotIn('document_id', $documentos->pluck('document_id'))
         ->where('category_id',2)
         ->get();
+        $miembros = PostulanteHasBeneficiary::where('postulante_id',$postulante->id)->get();
         //$docproyecto = $docproyecto->whereNotIn('document_id', $documentos->pluck('document_id'));
-        return view('postulantes.show',compact('title','project','documentos','docproyecto','postulante'));
+        return view('postulantes.show',compact('title','project','miembros','documentos','docproyecto','postulante'));
     }
 
     public function upload(Request $request)

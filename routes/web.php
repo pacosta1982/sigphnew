@@ -33,6 +33,10 @@ Route::get('projects/{id}/postulantes/{idpostulante}', 'PostulantesController@sh
 Route::post('postulantes/upload', 'PostulantesController@upload');
 Route::post('postulantes/destroyfile', 'PostulantesController@destroyfile');
 
+//Miembros
+Route::post('projects/{id}/postulantes/createmiembro', 'PostulantesController@createmiembro');
+Route::post('savemiembro', 'PostulantesController@storemiembro');
+
 //Mensajes
 Route::group(['prefix' => 'messages'], function () {
     Route::get('/', ['as' => 'messages.index', 'uses' => 'MessagesController@index']);

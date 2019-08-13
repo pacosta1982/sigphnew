@@ -13,7 +13,7 @@
 @section('content')
 
 <div class="box box-primary">
-    <form role="form" action="{{isset($project['id'])?action('PostulantesController@update',['id' => $project['id']]):action('PostulantesController@store') }}" method="post">
+    <form role="form" action="{{isset($project['id'])?action('PostulantesController@update',['id' => $project['id']]):action('PostulantesController@storemiembro') }}" method="post">
             @csrf
             @if(isset($project['id']))
                 {!! method_field('patch') !!}
@@ -21,6 +21,8 @@
             <input type="text"  name="gender" value="{{ $sexo }}"  hidden>
             <input type="text"  name="project_id" value="{{ $project_id->id }}"  hidden>
             <input type="text"  name="grupo" value="{{ $project_id->name }}"  hidden>
+            <input type="text"  name="postulante_id" value="{{ $postulante }}"  hidden>
+
       <div class="box-body">
           <div class="row">
                 <div class="col-md-6">
@@ -56,8 +58,13 @@
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Parentesco</label>
-                        <select class="form-control required" name="" readonly>
-                            <option value="">Postulante</option>
+                        <select class="form-control required" name="parentesco_id" required>
+                            <option value="">Seleccione Parentesco</option>
+                            @foreach($parentesco as $key=>$par)
+                                <option value="{{$par->id}}"
+                                    {{ old('typology_id',isset($project['typology_id'])?$project['typology_id']:'') == $par->id ? 'selected' : '' }}
+                                    >{{ $par->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
@@ -86,18 +93,18 @@
 
                     <div class="form-group {{ $errors->has('asentamiento') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Ingreso Mensual</label>
-                        <input type="number" required class="form-control" name="ingreso" value="{{ old('ingreso',isset($project['ingreso'])?$project['ingreso']:'') }}" placeholder="Ingrese el Ingreso Mensual">
+                        <input type="text" class="form-control" required name="ingreso" value="{{ old('ingreso',isset($project['ingreso'])?$project['ingreso']:'') }}" placeholder="Ingrese el Ingreso Mensual">
                         {!! $errors->first('ingreso','<span class="help-block">:message</span>') !!}
                     </div>
 
                     <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Telefono Movil (Celular)</label>
-                        <input type="text" required class="form-control" name="mobile" value="{{ old('mobile',isset($project['mobile'])?$project['mobile']:'') }}" placeholder="Ingrese Telefono Movil (Celular)">
+                        <input type="text" class="form-control" required name="mobile" value="{{ old('mobile',isset($project['mobile'])?$project['mobile']:'') }}" placeholder="Ingrese Telefono Movil (Celular)">
                         {!! $errors->first('mobile','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('land_id') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Discapacidad</label>
-                        <select class="form-control required" required name="discapacidad_id">
+                        <select class="form-control required" name="discapacidad_id" required>
                             <option value="">Selecciona la Discapacidad</option>
                                 @foreach($discapacdad as $key=>$dis)
                                     <option value="{{$dis->id}}"

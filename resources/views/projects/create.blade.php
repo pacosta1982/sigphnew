@@ -31,9 +31,6 @@
                         <input type="text" class="form-control" name="leader_name" value="{{ old('leader_name',isset($project['leader_name'])?$project['leader_name']:'') }}" placeholder="Ingrese Nombre del Lider del Grupo">
                         {!! $errors->first('leader_name','<span class="help-block">:message</span>') !!}
                     </div>
-
-
-
                 </div>
 
                 <div class="col-md-6">
@@ -82,15 +79,15 @@
               <div class="col-md-4">
                 <div class="form-group {{ $errors->has('land_id') ? 'has-error' : '' }}">
                     <label for="exampleInputPassword1">Tipologia</label>
-                    <select class="form-control required" name="land_id">
+                    <select class="form-control required" name="typology_id">
                         <option value="">Selecciona la Tipologia</option>
-                            @foreach($tierra as $key=>$name)
-                                <option value="{{$name->id}}"
-                                    {{ old('land_id',isset($project['land_id'])?$project['land_id']:'') == $name->id ? 'selected' : '' }}
-                                    >{{ $name->name }}</option>
+                            @foreach($tipologias as $key=>$tipo)
+                                <option value="{{$tipo->id}}"
+                                    {{ old('typology_id',isset($project['typology_id'])?$project['typology_id']:'') == $tipo->id ? 'selected' : '' }}
+                                    >{{ $tipo->name }}</option>
                             @endforeach
                     </select>
-                    {!! $errors->first('land_id','<span class="help-block">:message</span>') !!}
+                    {!! $errors->first('typology_id','<span class="help-block">:message</span>') !!}
                 </div>
               </div>
           </div>

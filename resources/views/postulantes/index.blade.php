@@ -31,6 +31,7 @@
                 <p>
                     <strong>SAT:</strong> {{$project->sat_id?$project->getSat->NucNomSat:""}}<br>
                     <strong>Tipo de Terreno:</strong> {{$project->land_id?$project->getLand->name:""}}<br>
+                    <strong>Total Postulantes:</strong> {{ $postulantes->count() }}<br>
                 </p>
               </div>
               <div class="col-md-4">
@@ -60,21 +61,21 @@
             <tr>
               <th>#</th>
               <th>Nombre</th>
-              <th>Cédula</th>
-              <th>Edad</th>
-              <th>Ingreso</th>
-              <th>Avance</th>
-              <th>Acciones</th>
+              <th class="text-center">Cédula</th>
+              <th class="text-center">Edad</th>
+              <th class="text-center">Ingreso</th>
+              <th class="text-center">Miembros</th>
+              <th class="text-center">Acciones</th>
             </tr>
             @foreach($postulantes as $key=>$post)
             <tr>
               <td>{{$key+1}}</td>
               <td>{{ $post->postulante_id?$post->getPostulante->first_name:"" }} {{ $post->postulante_id?$post->getPostulante->last_name:"" }}</td>
-              <td>{{ $post->postulante_id?$post->getPostulante->cedula:"" }} </td>
-              <td>{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
-              <td>{{ $post->postulante_id?$post->getPostulante->ingreso:"" }} </td>
-              <td><span class="badge bg-red">55%</span></td>
-              <td>
+              <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->cedula:"",0,".",".") }} </td>
+              <td class="text-center">{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
+              <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->ingreso:"",0,".",".") }} </td>
+              <td class="text-center">{{ $post->getMembers->count() }}</td>
+              <td class="text-center">
                     <div class="btn-group">
                             <button type="button" class="btn btn-info">Acciones</button>
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">

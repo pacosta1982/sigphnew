@@ -16,9 +16,9 @@
                 <li><a href='{{ backpack_url('modalidad_land') }}'><i class='fa fa-tag'></i> <span>Modalidad - Tierra</span></a></li>
                 <li><a href='{{ backpack_url('land_project') }}'><i class='fa fa-tag'></i> <span>Tierra - Tipo Proyecto</span></a></li>
                 <li><a href='{{ backpack_url('assignment') }}'><i class='fa fa-tag'></i> <span>Tipo Proyecto - Documentos</span></a></li>
+                <li><a href='{{ backpack_url('project_tipologies') }}'><i class='fa fa-tag'></i> <span>Tipo Proyecto - Tipologias</span></a></li>
         </ul>
 </li>
-
 <li class="treeview">
         <a href="#"><i class="fa fa-file"></i> <span>Mantenimiento</span> <i class="fa fa-angle-left pull-right"></i></a>
         <ul class="treeview-menu">
@@ -30,10 +30,9 @@
                 <li><a href='{{ backpack_url('project_type') }}'><i class='fa fa-tag'></i> <span>Tipos Proyectos</span></a></li>
                 <li><a href='{{ backpack_url('stage') }}'><i class='fa fa-tag'></i> <span>Etapas</span></a></li>
                 <li><a href='{{ backpack_url('typology') }}'><i class='fa fa-tag'></i> <span>Tipologias</span></a></li>
+                <li><a href='{{ backpack_url('parentesco') }}'><i class='fa fa-tag'></i> <span>Parentesco</span></a></li>
         </ul>
 </li>
 
 
-
-
-<li><a href='{{ backpack_url('project_tipologies') }}'><i class='fa fa-tag'></i> <span>Tipo Proyecto - Tipologias</span></a></li>
+<li><a href='{{ backpack_url('discapacidad') }}'><i class='fa fa-tag'></i> <span>Discapacidad</span></a></li>
