@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'AdminLTE')
+@section('title', 'FONAVIS')
 
 @section('content_header')
 <h1>{{ $title }}</h1>
@@ -37,7 +37,9 @@
               </div>
               <div class="col-md-4">
                 <p class="text-center">
-
+                   <a href="{!! action('PostulantesController@generatePDF', ['id'=>$project->id]) !!}"> <button type="button" class="btn btn-success btn-lg pull-right">
+                        <i class="fa fa-file-excel-o"></i> Imprimir Listado
+                        </button></a>
                 </p>
 
               </div>

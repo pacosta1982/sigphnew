@@ -23,6 +23,11 @@ class Project_tipologies extends Model
     // protected $hidden = [];
     // protected $dates = [];
 
+    public function getDateFormat()
+    {
+        return 'Y-d-m H:i:s.v';
+    }
+
     public function tipo() {
         return $this->hasOne('App\Models\Project_type','id','project_type_id');
     }

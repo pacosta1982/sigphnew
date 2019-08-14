@@ -14,6 +14,8 @@ use App\Models\Documents;
 use App\Models\Assignment;
 use App\Models\Typology;
 use App\Models\Land_project;
+use App\Models\ModalityHasLand;
+use App\Models\Project_tipologies;
 use App\User;
 
 use App\Http\Requests\StoreProject;
@@ -93,13 +95,16 @@ class ProjectController extends Controller
         $title="Resumen Proyecto ".$project->name;
 
         $tipoproy = Land_project::where('land_id',$project->land_id)->first();
-        //dd($project);
+        //dd($tipoproy);
         $documentos = Documents::where('project_id',$id)->get();
-        $docproyecto = Assignment::where('project_type_id',$tipoproy->land_id)
+
+        $docproyecto = Assignment::where('project_type_id',$tipoproy->project_type_id)
+
         ->whereNotIn('document_id', $documentos->pluck('document_id'))
         ->where('category_id',1)
         ->where('stage_id',1)
         ->get();
+        //dd($docproyecto);
         //$docproyecto = $docproyecto->whereNotIn('document_id', $documentos->pluck('document_id'));
         return view('projects.show',compact('title','project','documentos','docproyecto','tipoproy'));
     }
@@ -202,6 +207,19 @@ class ProjectController extends Controller
 
     public function distrito($dptoid){
         $dpto = Distrito::where('CiuDptoID', $dptoid)->get()->sortBy("CiuNom")->pluck("CiuNom","CiuId");
+        return json_encode($dpto);
+    }
+
+    public function lands($dptoid){
+        $dpto = ModalityHasLand::join('lands', 'modality_has_lands.land_id', '=', 'lands.id')
+        ->where('modality_id', $dptoid)->get()->sortBy("name")->pluck("name","land_id");
+        return json_encode($dpto);
+    }
+
+    public function typology($dptoid){
+        $tipo = Land_project::where('land_id',$dptoid)->first();
+        $dpto = Project_tipologies::join('typologies', 'project_type_has_typologies.typology_id', '=', 'typologies.id')
+        ->where('project_type_id',$tipo->project_type_id)->get()->sortBy("name")->pluck("name","typology_id");
         return json_encode($dpto);
     }
 }

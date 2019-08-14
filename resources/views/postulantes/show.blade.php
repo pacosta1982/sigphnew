@@ -49,7 +49,6 @@
       </div>
       <!-- /.col -->
     </div>
-    <h4><strong>Documentos</strong></h4>
     <div class="row">
         <div class="col-md-12">
           <!-- Custom Tabs -->

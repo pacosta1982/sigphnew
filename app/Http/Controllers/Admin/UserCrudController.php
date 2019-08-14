@@ -181,7 +181,7 @@ class UserCrudController extends CrudController
         $user->username = $request['username'];
         $user->email = $request['email'];
         if($request['password']){
-          $user->password = $request['password'];
+          $user->password = Hash::make($request['password']);
         }
         $user->remember_token = $request['_token'];
         $user->sat_ruc = $request['sat_ruc'];

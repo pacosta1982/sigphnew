@@ -7,7 +7,7 @@
 <ol class="breadcrumb">
 <li><a href="{{url('projects')}}"><i class="fa fa-home"></i>Inicio</a></li>
 <li><a href="{{url('projects/'.$project_id->id.'/postulantes')}}">Postulantes del Proyecto {{ $project_id->name }}</a></li>
-<li><a href="{{url('projects/'.$project_id->id.'/postulantes/'.$parent->postulante_id)}}">Postulante </a></li>
+ <li><a href="{{url('projects/'.$project_id->id.'/postulantes/'.$idpostulante)}}">Postulante </a></li>
 <li class="active"><a href="#">Agregar Miembro</a></li>
 </ol>
 @stop
@@ -23,9 +23,9 @@
             <input type="text"  name="gender" value="{{ $sexo }}"  hidden>
             <input type="text"  name="project_id" value="{{ $project_id->id }}"  hidden>
             <input type="text"  name="grupo" value="{{ $project_id->name }}"  hidden>
-            <input type="text"  name="postulante_id" value="{{ $parent->postulante_id}}"  hidden>
+            <input type="text"  name="postulante_id" value="{{ $idpostulante}}"  hidden>
             <input type="text"  name="disc_id" value="{{ isset($disc['id'])?$disc['id']:'' }}"  hidden>
-            <input type="text"  name="parent_id" value="{{ $parent->id}}"  hidden>
+            <input type="text"  name="parent_id" value="{{ isset($parent->id)?$parent->id:''}}"  hidden>
 
       <div class="box-body">
           <div class="row">

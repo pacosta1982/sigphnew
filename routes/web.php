@@ -27,6 +27,8 @@ Route::post('projects/upload', 'ProjectController@upload');
 Route::post('projects/destroyfile', 'ProjectController@destroyfile');
 
 Route::get('projects/ajax/{state_id?}/cities', 'ProjectController@distrito');
+Route::get('projects/ajax/{state_id?}/lands', 'ProjectController@lands');
+Route::get('projects/ajax/{state_id?}/typology', 'ProjectController@typology');
 
 //Postulantes
 Route::get('projects/{id}/postulantes', 'PostulantesController@index');
@@ -37,6 +39,8 @@ Route::get('projects/{id}/postulantes/{idpostulante}/edit', 'PostulantesControll
 Route::post('editpostulante', 'PostulantesController@update');
 Route::post('postulantes/upload', 'PostulantesController@upload');
 Route::post('postulantes/destroyfile', 'PostulantesController@destroyfile');
+
+Route::get('generate-pdf/{id}','PostulantesController@generatePDF');
 
 //Miembros
 Route::post('projects/{id}/postulantes/createmiembro', 'PostulantesController@createmiembro');

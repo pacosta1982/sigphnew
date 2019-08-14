@@ -15,8 +15,8 @@ use App\Models\Discapacidad;
 use App\Models\Parentesco;
 use App\Models\PostulanteHasDiscapacidad;
 use App\Models\PostulanteHasBeneficiary;
-
 use App\Http\Requests\StorePostulante;
+use PDF;
 
 class PostulantesController extends Controller
 {
@@ -176,10 +176,10 @@ class PostulantesController extends Controller
                     $project_id = Project::find($id);
                     $parentesco = Parentesco::all();
                     $discapacdad = Discapacidad::all();
-                    $postulante = $request->postulante_id;
+                    $idpostulante = $request->postulante_id;
                         //var_dump($datospersona->obtenerPersonaPorNroCedulaResponse);
                     return view('postulantes.ficha.createmiembro',compact('nroexp','cedula','nombre','apellido','fecha','sexo',
-                    'nac','est','title','project_id','discapacdad','postulante','parentesco'/*,'escolaridad','discapacidad','enfermedad','entidades'*/));
+                    'nac','est','title','project_id','discapacdad','idpostulante','parentesco'/*,'escolaridad','discapacidad','enfermedad','entidades'*/));
                 }
 
                 //$nombre = $datos->nombres;
@@ -304,9 +304,10 @@ class PostulantesController extends Controller
         $disc = PostulanteHasDiscapacidad::where('postulante_id',$postulante->id)->first();
         $parentesco = Parentesco::all();
         $parent = PostulanteHasBeneficiary::where('miembro_id',$postulante->id)->first();
+        $idpostulante=$parent->postulante_id;
 
         return view('postulantes.ficha.createmiembro',compact('title','project','postulante','apellido','cedula','sexo','project_id',
-                                                'nombre','nac','est','fecha','discapacdad','disc','parentesco','parent'));
+                                                'nombre','nac','est','fecha','discapacdad','disc','parentesco','parent','idpostulante'));
     }
 
     public function update(Request $request)
@@ -358,6 +359,19 @@ class PostulantesController extends Controller
         $parent->save();
 
         return redirect('projects/'.$request->input("project_id").'/postulantes/'.$request->input("postulante_id"))->with('success', 'El miembro fue actualizado!');
+    }
+
+    public function generatePDF($id)
+    {
+        $project=Project::find($id);
+        $postulantes = ProjectHasPostulantes::where('project_id',$id)->get();
+        $data = ['title' => 'Welcome to HDTuto.com',
+                'project' => $project,
+                'postulantes' => $postulantes
+                ];
+        $pdf = PDF::loadView('myPDF', $data);
+
+        return $pdf->download('postulantes.pdf');
     }
 
 
