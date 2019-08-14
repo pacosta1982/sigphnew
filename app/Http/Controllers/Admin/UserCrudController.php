@@ -99,7 +99,10 @@ class UserCrudController extends CrudController
             'attribute' => 'NucNomSat', // foreign key attribute that is shown to user
             'model' => "App\Models\Sat", // foreign key model
             'options'   => (function ($query) {
-                return $query->orderBy('NucNomSat', 'ASC')->where('NucRuc','!=', null)->get();
+                return $query->orderBy('NucNomSat', 'ASC')
+                ->where('NucRuc','!=', null)
+                ->where('NucEst','=', 'H')
+                ->get();
                 }),
             ]
         );
