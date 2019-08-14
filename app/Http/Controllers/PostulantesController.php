@@ -13,6 +13,8 @@ use App\Models\Assignment;
 use App\Models\Land_project;
 use App\Models\Discapacidad;
 use App\Models\Parentesco;
+use App\Models\SIG005;
+use App\Models\SHMCER;
 use App\Models\PostulanteHasDiscapacidad;
 use App\Models\PostulanteHasBeneficiary;
 use App\Http\Requests\StorePostulante;
@@ -42,10 +44,26 @@ class PostulantesController extends Controller
     public function create(Request $request, $id){
 
         if ($request->input('cedula')) {
+
+            $expedientes = SIG005::where('NroExpPer',$request->input('cedula'))->where('TexCod',118)->get();
+            $certificados = SHMCER::where('CerPosCod',$request->input('cedula'))->get();
+            $certificadosconyuge = SHMCER::where('CerCoCI',$request->input('cedula'))->get();
             $existe = Postulante::where('cedula',$request->input('cedula'))->get();
             if($existe->count() >= 1){
                 //Session::flash('error', 'Ya existe el postulante!');
                 return redirect()->back()->with('error', 'Ya existe el postulante!');
+            }
+
+            if ($expedientes->count() >= 1) {
+                return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
+            }
+
+            if ($certificados->count() >= 1) {
+                return redirect()->back()->with('error', 'Ya cuenta con certificado de Subsidio como Titular!');
+            }
+
+            if ($certificadosconyuge->count() >= 1) {
+                return redirect()->back()->with('error', 'Ya cuenta con certificado de Subsidio como Conyuge!');
             }
 
             $headers = [
@@ -121,10 +139,25 @@ class PostulantesController extends Controller
     public function createmiembro(Request $request, $id){
 
         if ($request->input('cedula')) {
+            $expedientes = SIG005::where('NroExpPer',$request->input('cedula'))->where('TexCod',118)->get();
+            $certificados = SHMCER::where('CerPosCod',$request->input('cedula'))->get();
+            $certificadosconyuge = SHMCER::where('CerCoCI',$request->input('cedula'))->get();
             $existe = Postulante::where('cedula',$request->input('cedula'))->get();
             if($existe->count() >= 1){
                 //Session::flash('error', 'Ya existe el postulante!');
                 return redirect()->back()->with('error', 'Ya existe el postulante!');
+            }
+
+            if ($expedientes->count() >= 1) {
+                return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
+            }
+
+            if ($certificados->count() >= 1) {
+                return redirect()->back()->with('error', 'Ya cuenta con certificado de Subsidio como Titular!');
+            }
+
+            if ($certificadosconyuge->count() >= 1) {
+                return redirect()->back()->with('error', 'Ya cuenta con certificado de Subsidio como Conyuge!');
             }
 
             $headers = [
