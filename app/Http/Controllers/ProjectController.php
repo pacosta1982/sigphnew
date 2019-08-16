@@ -207,19 +207,19 @@ class ProjectController extends Controller
 
     public function distrito($dptoid){
         $dpto = Distrito::where('CiuDptoID', $dptoid)->get()->sortBy("CiuNom")->pluck("CiuNom","CiuId");
-        return json_encode($dpto, JSON_UNESCAPED_UNICODE);
+        return json_encode($dpto);
     }
 
     public function lands($dptoid){
         $dpto = ModalityHasLand::join('lands', 'modality_has_lands.land_id', '=', 'lands.id')
         ->where('modality_id', $dptoid)->get()->sortBy("name")->pluck("name","land_id");
-        return json_encode($dpto, JSON_UNESCAPED_UNICODE);
+        return json_encode($dpto);
     }
 
     public function typology($dptoid){
         $tipo = Land_project::where('land_id',$dptoid)->first();
         $dpto = Project_tipologies::join('typologies', 'project_type_has_typologies.typology_id', '=', 'typologies.id')
         ->where('project_type_id',$tipo->project_type_id)->get()->sortBy("name")->pluck("name","typology_id");
-        return json_encode($dpto, JSON_UNESCAPED_UNICODE);
+        return json_encode($dpto);
     }
 }

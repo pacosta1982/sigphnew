@@ -154,7 +154,8 @@
                             $('select[name="city_id"]').append('<option value="">Selecciona un Distrito</option>');
 
                             $.each(data, function(key, value) {
-                                $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                var textoISO = encode_utf8(value);
+                                $('select[name="city_id"]').append('<option value="'+ key +'">'+ textoISO +'</option>');
                             });
 
                         }
@@ -209,5 +210,15 @@
                     $('select[name="typology_id"]').empty();
                 }
             });
+
+            function encode_utf8( s )
+            {
+            return unescape( encodeURIComponent( s ) );
+            }
+
+            function decode_utf8( s )
+            {
+            return decodeURIComponent( escape( s ) );
+            }
     </script>
 @stop
