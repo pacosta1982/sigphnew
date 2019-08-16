@@ -15,6 +15,8 @@ use App\Models\Discapacidad;
 use App\Models\Parentesco;
 use App\Models\SIG005;
 use App\Models\SHMCER;
+use App\Models\PRMCLI;
+use App\Models\IVMSOL;
 use App\Models\PostulanteHasDiscapacidad;
 use App\Models\PostulanteHasBeneficiary;
 use App\Http\Requests\StorePostulante;
@@ -49,12 +51,17 @@ class PostulantesController extends Controller
             $certificados = SHMCER::where('CerPosCod',$request->input('cedula'))->get();
             $certificadosconyuge = SHMCER::where('CerCoCI',$request->input('cedula'))->get();
             $existe = Postulante::where('cedula',$request->input('cedula'))->get();
+            $cartera = PRMCLI::where('PerCod',$request->input('cedula'))
+            ->where('PylCod','!=' ,'P.F.')
+            ->get();
+            $solicitantes = IVMSOL::where('SolPerCge',$request->input('cedula'))->first();
+
             if($existe->count() >= 1){
                 //Session::flash('error', 'Ya existe el postulante!');
                 return redirect()->back()->with('error', 'Ya existe el postulante!');
             }
 
-           /* if ($expedientes->count() >= 1) {
+            if ($expedientes->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
             }
 
@@ -64,7 +71,22 @@ class PostulantesController extends Controller
 
             if ($certificadosconyuge->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya cuenta con certificado de Subsidio como Conyuge!');
-            }*/
+            }
+
+            if ($cartera->count() >= 1) {
+                return redirect()->back()->with('error', 'Ya cuenta con Beneficios en la Institución!');
+            }
+
+            if ($solicitantes->count() >= 1) {
+                //dd(trim($solicitantes->SolPerCod));
+                $carterasol = PRMCLI::where('PerCod',trim($solicitantes->SolPerCod))
+                ->where('PylCod','!=' ,'P.F.')
+                ->get();
+                if ($carterasol->count() >= 1) {
+                    return redirect()->back()->with('error', 'Ya cuenta con Beneficios en la Institución como Conyuge!');
+                }
+
+            }
 
             $headers = [
                 'Content-Type' => 'application/json',
@@ -106,7 +128,7 @@ class PostulantesController extends Controller
                     $apellido = $datospersona->obtenerPersonaPorNroCedulaResponse->return->apellido;
                     $cedula = $datospersona->obtenerPersonaPorNroCedulaResponse->return->cedula;
                     $sexo = $datospersona->obtenerPersonaPorNroCedulaResponse->return->sexo;
-                    $fecha = date('Y-d-m H:i:s.v', strtotime($datospersona->obtenerPersonaPorNroCedulaResponse->return->fechNacim));
+                    $fecha = date('Y-m-d H:i:s.v', strtotime($datospersona->obtenerPersonaPorNroCedulaResponse->return->fechNacim));
                     $nac = $datospersona->obtenerPersonaPorNroCedulaResponse->return->nacionalidadBean;
                     $est = $datospersona->obtenerPersonaPorNroCedulaResponse->return->estadoCivil;
                     //$prof = $datospersona->obtenerPersonaPorNroCedulaResponse->return->profesionBean;
@@ -143,12 +165,19 @@ class PostulantesController extends Controller
             $certificados = SHMCER::where('CerPosCod',$request->input('cedula'))->get();
             $certificadosconyuge = SHMCER::where('CerCoCI',$request->input('cedula'))->get();
             $existe = Postulante::where('cedula',$request->input('cedula'))->get();
+            $cartera = PRMCLI::where('PerCod',$request->input('cedula'))
+            ->where('PylCod','!=' ,'P.F.')
+            ->get();
+            $solicitantes = IVMSOL::where('SolPerCge',$request->input('cedula'))->first();
+
+
+
             if($existe->count() >= 1){
                 //Session::flash('error', 'Ya existe el postulante!');
                 return redirect()->back()->with('error', 'Ya existe el postulante!');
             }
 
-            /*if ($expedientes->count() >= 1) {
+            if ($expedientes->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
             }
 
@@ -158,7 +187,22 @@ class PostulantesController extends Controller
 
             if ($certificadosconyuge->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya cuenta con certificado de Subsidio como Conyuge!');
-            }*/
+            }
+
+            if ($cartera->count() >= 1) {
+                return redirect()->back()->with('error', 'Ya cuenta con Beneficios en la Institución!');
+            }
+
+            if ($solicitantes->count() >= 1) {
+                //dd(trim($solicitantes->SolPerCod));
+                $carterasol = PRMCLI::where('PerCod',trim($solicitantes->SolPerCod))
+                ->where('PylCod','!=' ,'P.F.')
+                ->get();
+                if ($carterasol->count() >= 1) {
+                    return redirect()->back()->with('error', 'Ya cuenta con Beneficios en la Institución como Conyuge!');
+                }
+
+            }
 
             $headers = [
                 'Content-Type' => 'application/json',
@@ -200,7 +244,7 @@ class PostulantesController extends Controller
                     $apellido = $datospersona->obtenerPersonaPorNroCedulaResponse->return->apellido;
                     $cedula = $datospersona->obtenerPersonaPorNroCedulaResponse->return->cedula;
                     $sexo = $datospersona->obtenerPersonaPorNroCedulaResponse->return->sexo;
-                    $fecha = date('Y-d-m H:i:s.v', strtotime($datospersona->obtenerPersonaPorNroCedulaResponse->return->fechNacim));
+                    $fecha = date('Y-m-d H:i:s.v', strtotime($datospersona->obtenerPersonaPorNroCedulaResponse->return->fechNacim));
                     $nac = $datospersona->obtenerPersonaPorNroCedulaResponse->return->nacionalidadBean;
                     $est = $datospersona->obtenerPersonaPorNroCedulaResponse->return->estadoCivil;
                     //$prof = $datospersona->obtenerPersonaPorNroCedulaResponse->return->profesionBean;

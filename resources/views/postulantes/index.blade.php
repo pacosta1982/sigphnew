@@ -24,7 +24,7 @@
             <div class="col-md-4">
               <p>
                 <strong>Departamento: </strong>{{utf8_encode($project->state_id?$project->getState->DptoNom:"")}}<br>
-                <strong>Distrito:</strong> {{utf8_encode($project->city_id?$project->getCity->CiuNom:"")}}<br>
+                <strong>Distrito:</strong> {{utf8_encode($project->city_id)}}<br>
                 <strong>Modalidad:</strong> {{utf8_encode($project->modalidad_id?$project->getModality->name:"")}}<br>
               </p>
             </div>
@@ -63,7 +63,7 @@
               <th>#</th>
               <th>Nombre</th>
               <th class="text-center">Cédula</th>
-              <th class="text-center">Edad</th>
+              <th class="text-center">Fecha Nacimiento</th>
               <th class="text-center">Ingreso</th>
               <th class="text-center">Miembros</th>
               <th class="text-center">Acciones</th>
@@ -73,7 +73,7 @@
               <td>{{$key+1}}</td>
               <td>{{ utf8_encode($post->postulante_id?$post->getPostulante->first_name:"") }} {{ utf8_encode($post->postulante_id?$post->getPostulante->last_name:"") }}</td>
               <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->cedula:"",0,".",".") }} </td>
-              <td class="text-center">{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
+              <td class="text-center">{{ \Carbon\Carbon::parse( $post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
               <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->ingreso:"",0,".",".") }} </td>
               <td class="text-center">{{ $post->getMembers->count() + 1 }}</td>
               <td class="text-center">

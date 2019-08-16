@@ -29,7 +29,7 @@
       <div class="col-sm-4 invoice-col">
         <address>
         <strong>Departamento: </strong>{{utf8_encode($project->state_id?$project->getState->DptoNom:"")}}<br>
-        <strong>Distrito:</strong> {{utf8_encode($project->city_id?$project->getCity->CiuNom:"")}}<br>
+        <strong>Distrito:</strong> {{utf8_encode($project->city_id)}}<br>
         <strong>Modalidad:</strong> {{utf8_encode($project->modalidad_id?$project->getModality->name:"")}}<br>
 
         </address>

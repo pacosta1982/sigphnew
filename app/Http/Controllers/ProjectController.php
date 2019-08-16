@@ -126,7 +126,13 @@ class ProjectController extends Controller
         $cities = $this->distrito($project->state_id);
         $cities = json_decode($cities, true);
         $tipologias = Typology::all();
-        return view('projects.create',compact('title','tierra','departamentos','modalidad','project','cities','tipologias'));
+
+        $lands = $this->lands($project->land_id);
+        $lands = json_decode($lands, true);
+
+        $typology = $this->typologyedit($project->typology_id);
+        $typology = json_decode($tipologias, true);
+        return view('projects.create',compact('title','tierra','typology','lands','departamentos','modalidad','project','cities','tipologias'));
     }
 
     /**
@@ -227,8 +233,17 @@ class ProjectController extends Controller
 
     public function typology($dptoid){
         $tipo = Land_project::where('land_id',$dptoid)->first();
+        //dd($tipo);
         $dpto = Project_tipologies::join('typologies', 'project_type_has_typologies.typology_id', '=', 'typologies.id')
         ->where('project_type_id',$tipo->project_type_id)->get()->sortBy("name")->pluck("name","typology_id");
+        return json_encode($dpto, JSON_UNESCAPED_UNICODE);
+    }
+
+    public function typologyedit($dptoid){
+        //$tipo = Land_project::where('land_id',$dptoid)->first();
+        //dd($tipo);
+        $dpto = Project_tipologies::join('typologies', 'project_type_has_typologies.typology_id', '=', 'typologies.id')
+        ->where('typology_id',$dptoid)->get()->sortBy("name")->pluck("name","typology_id");
         return json_encode($dpto, JSON_UNESCAPED_UNICODE);
     }
 }

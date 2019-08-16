@@ -17,7 +17,7 @@ class Parentesco extends Model
 
     protected $table = 'parentesco';
     // protected $primaryKey = 'id';
-    // public $timestamps = false;
+     public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['name'];
     // protected $hidden = [];
