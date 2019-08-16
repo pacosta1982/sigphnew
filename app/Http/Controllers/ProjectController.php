@@ -207,7 +207,8 @@ class ProjectController extends Controller
 
     public function distrito($dptoid){
         $dpto = Distrito::where('CiuDptoID', $dptoid)->get()->sortBy("CiuNom")->pluck("CiuNom","CiuId");
-        return json_encode($dpto, JSON_FORCE_OBJECT);
+        //return json_encode($dpto, JSON_FORCE_OBJECT);
+        return json_encode($dpto , JSON_UNESCAPED_UNICODE);
     }
 
     public function lands($dptoid){
