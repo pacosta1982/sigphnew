@@ -67,7 +67,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('last_name') ? 'has-error' : '' }}">
                         <label>Apellidos</label>
-                        <input type="text" class="form-control" name="last_name" value="{{ utf8_encode($apellido) }}"  readonly>
+                        <input type="text" class="form-control" name="last_name" value="{{ $apellido }}"  readonly>
                         {!! $errors->first('last_name','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('marital_status') ? 'has-error' : '' }}">

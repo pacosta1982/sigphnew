@@ -11,7 +11,18 @@ class Postulante extends Model
 
     public function getDateFormat()
     {
-        return 'Y-m-d H:i:s.u0';
+        return 'Y-m-d H:i:s.u';
+    }
+
+    /**
+     * Convert a DateTime to a storable string.
+     *
+     * @param  \DateTime|int  $value
+     * @return string
+     */
+    public function fromDateTime($value)
+    {
+        return $value->format('Y-m-d H:i:s.v');
     }
 
     //protected $dates = ['created_at','updated_at'];
