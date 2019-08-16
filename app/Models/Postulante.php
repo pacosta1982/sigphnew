@@ -12,6 +12,8 @@ class Postulante extends Model
         return 'Y-d-m H:i:s.v';
     }
 
+    public $timestamps = false;
+
     protected $fillable = ['first_name', 'last_name', 'cedula','marital_status','nacionalidad','gender','birthdate','localidad',
     'asentamiento','ingreso','address','grupo','phone','mobile'];
 
