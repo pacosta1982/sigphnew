@@ -98,6 +98,7 @@ return [
             'username' => env('DB_USERNAME_SECOND2', 'forge'),
             'password' => env('DB_PASSWORD_SECOND2', ''),
             'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
             'prefix' => '',
             'prefix_indexes' => true,
         ],

@@ -152,10 +152,10 @@
 
                             $('select[name="city_id"]').empty();
                             $('select[name="city_id"]').append('<option value="">Selecciona un Distrito</option>');
-
+                            //data = encode_utf8(data);
                             $.each(data, function(key, value) {
-                                var textoISO = encode_utf8(value);
-                                $('select[name="city_id"]').append('<option value="'+ key +'">'+ textoISO +'</option>');
+
+                                $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
                             });
 
                         }
