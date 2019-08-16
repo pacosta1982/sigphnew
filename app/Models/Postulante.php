@@ -9,7 +9,7 @@ class Postulante extends Model
     //
     //protected $dateFormat = 'Y-m-d H:i:s.v';
 
-    protected function getDateFormat()
+    public function getDateFormat()
     {
         return 'Y-m-d H:i:s.u0';
     }
