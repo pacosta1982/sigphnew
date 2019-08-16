@@ -12,7 +12,7 @@ class Project extends Model
     //protected $dateFormat = 'd-m-Y H:i:s';
     protected $dateFormat = 'Y-m-d H:i:s.v';
 
-    //protected $dates = ['created_at'];
+    protected $dates = ['created_at','updated_at'];
 
     /*public function getDateFormat()
     {
