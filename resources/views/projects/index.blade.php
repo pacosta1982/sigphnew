@@ -34,7 +34,7 @@
         </tr>
         @foreach($projects as $project)
         <tr>
-        <td>{{$project->name}}</td>
+        <td>{{utf8_encode($project->name)}}</td>
         <td>{{$project->sat_id?$project->getSat->NucNomSat:""}}</td>
         <td>{{$project->land_id?$project->getLand->name:""}}</td>
         <td>{{$project->state_id?$project->getState->DptoNom:""}}</td>
