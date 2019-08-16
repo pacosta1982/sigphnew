@@ -77,7 +77,7 @@ class PostulantesController extends Controller
                 return redirect()->back()->with('error', 'Ya cuenta con Beneficios en la Institución!');
             }
 
-            if ($solicitantes->count() >= 1) {
+            if ($solicitantes) {
                 //dd(trim($solicitantes->SolPerCod));
                 $carterasol = PRMCLI::where('PerCod',trim($solicitantes->SolPerCod))
                 ->where('PylCod','!=' ,'P.F.')
@@ -193,7 +193,7 @@ class PostulantesController extends Controller
                 return redirect()->back()->with('error', 'Ya cuenta con Beneficios en la Institución!');
             }
 
-            if ($solicitantes->count() >= 1) {
+            if ($solicitantes) {
                 //dd(trim($solicitantes->SolPerCod));
                 $carterasol = PRMCLI::where('PerCod',trim($solicitantes->SolPerCod))
                 ->where('PylCod','!=' ,'P.F.')

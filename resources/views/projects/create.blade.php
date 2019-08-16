@@ -42,7 +42,7 @@
                     </div>
                     <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Telefono</label>
-                        <input required type="text" class="form-control" name="phone" value="{{ old('phone',isset($project['phone'])?$project['phone']:'') }}" placeholder="Ingrese Telefono de Contacto">
+                        <input required type="number" class="form-control" name="phone" value="{{ old('phone',isset($project['phone'])?$project['phone']:'') }}" placeholder="Ingrese Telefono de Contacto">
                         {!! $errors->first('phone','<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
