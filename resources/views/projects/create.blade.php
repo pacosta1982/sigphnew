@@ -104,7 +104,7 @@
                             @foreach($departamentos as $key=>$dpto)
                                 <option value="{{$dpto->DptoId}}"
                                     {{ old('state_id',isset($project['state_id'])?$project['state_id']:'') == $dpto->DptoId ? 'selected' : '' }}
-                                    >{{ $dpto->DptoNom }}</option>
+                                    >{{ utf8_encode($dpto->DptoNom) }}</option>
                             @endforeach
                     </select>
                     {!! $errors->first('state_id','<span class="help-block">:message</span>') !!}
