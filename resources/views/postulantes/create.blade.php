@@ -21,14 +21,14 @@
             @endif
             <input type="text"  name="gender" value="{{ $sexo }}"  hidden>
             <input type="text"  name="project_id" value="{{ $project_id->id }}"  hidden>
-            <input type="text"  name="grupo" value="{{ $project_id->name }}"  hidden>
+            <input type="text"  name="grupo" value="{{ utf8_encode($project_id->name) }}"  hidden>
             <input type="text"  name="disc_id" value="{{ isset($disc['id'])?$disc['id']:'' }}"  hidden>
       <div class="box-body">
           <div class="row">
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('first_name') ? 'has-error' : '' }}">
                         <label>Nombres</label>
-                        <input type="text" class="form-control" name="first_name" value="{{ $nombre }}"  readonly>
+                        <input type="text" class="form-control" name="first_name" value="{{ utf8_encode($nombre) }}"  readonly>
                         {!! $errors->first('first_name','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('cedula') ? 'has-error' : '' }}">
@@ -38,7 +38,7 @@
                     </div>
                     <div class="form-group {{ $errors->has('nacionalidad') ? 'has-error' : '' }}">
                         <label>Nacionalidad</label>
-                        <input type="text" class="form-control" name="nacionalidad" value="{{ $nac }}"  readonly>
+                        <input type="text" class="form-control" name="nacionalidad" value="{{ utf8_encode($nac) }}"  readonly>
                         {!! $errors->first('nacionalidad','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('localidad') ? 'has-error' : '' }}">
@@ -67,12 +67,12 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('last_name') ? 'has-error' : '' }}">
                         <label>Apellidos</label>
-                        <input type="text" class="form-control" name="last_name" value="{{ $apellido }}"  readonly>
+                        <input type="text" class="form-control" name="last_name" value="{{ utf8_encode($apellido) }}"  readonly>
                         {!! $errors->first('last_name','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('marital_status') ? 'has-error' : '' }}">
                         <label>Estado Civil</label>
-                        <input type="text" class="form-control" name="marital_status" value="{{ $est }}"  readonly>
+                        <input type="text" class="form-control" name="marital_status" value="{{ utf8_encode($est) }}"  readonly>
                         {!! $errors->first('marital_status','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('birthdate') ? 'has-error' : '' }}">
