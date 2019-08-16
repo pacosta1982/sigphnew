@@ -9,7 +9,7 @@ class Postulante extends Model
     //
     protected $dateFormat = 'Y-m-d H:i:s.v';
 
-    protected $dates = ['created_at','updated_at'];
+    //protected $dates = ['created_at','updated_at'];
 
 
 
