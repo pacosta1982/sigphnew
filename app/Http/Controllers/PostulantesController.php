@@ -54,7 +54,7 @@ class PostulantesController extends Controller
                 return redirect()->back()->with('error', 'Ya existe el postulante!');
             }
 
-            if ($expedientes->count() >= 1) {
+           /* if ($expedientes->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
             }
 
@@ -64,7 +64,7 @@ class PostulantesController extends Controller
 
             if ($certificadosconyuge->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya cuenta con certificado de Subsidio como Conyuge!');
-            }
+            }*/
 
             $headers = [
                 'Content-Type' => 'application/json',
@@ -148,7 +148,7 @@ class PostulantesController extends Controller
                 return redirect()->back()->with('error', 'Ya existe el postulante!');
             }
 
-            if ($expedientes->count() >= 1) {
+            /*if ($expedientes->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
             }
 
@@ -158,7 +158,7 @@ class PostulantesController extends Controller
 
             if ($certificadosconyuge->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya cuenta con certificado de Subsidio como Conyuge!');
-            }
+            }*/
 
             $headers = [
                 'Content-Type' => 'application/json',

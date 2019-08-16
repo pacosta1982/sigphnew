@@ -23,15 +23,15 @@
           <div class="row">
             <div class="col-md-4">
               <p>
-                <strong>Departamento: </strong>{{$project->state_id?$project->getState->DptoNom:""}}<br>
-                <strong>Distrito:</strong> {{$project->city_id?$project->getCity->CiuNom:""}}<br>
-                <strong>Modalidad:</strong> {{$project->modalidad_id?$project->getModality->name:""}}<br>
+                <strong>Departamento: </strong>{{utf8_encode($project->state_id?$project->getState->DptoNom:"")}}<br>
+                <strong>Distrito:</strong> {{utf8_encode($project->city_id?$project->getCity->CiuNom:"")}}<br>
+                <strong>Modalidad:</strong> {{utf8_encode($project->modalidad_id?$project->getModality->name:"")}}<br>
               </p>
             </div>
               <div class="col-md-4">
                 <p>
-                    <strong>SAT:</strong> {{$project->sat_id?$project->getSat->NucNomSat:""}}<br>
-                    <strong>Tipo de Terreno:</strong> {{$project->land_id?$project->getLand->name:""}}<br>
+                    <strong>SAT:</strong> {{utf8_encode($project->sat_id?$project->getSat->NucNomSat:"")}}<br>
+                    <strong>Tipo de Terreno:</strong> {{utf8_encode($project->land_id?$project->getLand->name:"")}}<br>
                     <strong>Total Postulantes:</strong> {{ $postulantes->count() }}<br>
                 </p>
               </div>
@@ -73,7 +73,7 @@
             @foreach($postulantes as $key=>$post)
             <tr>
               <td>{{$key+1}}</td>
-              <td>{{ $post->postulante_id?$post->getPostulante->first_name:"" }} {{ $post->postulante_id?$post->getPostulante->last_name:"" }}</td>
+              <td>{{ utf8_encode($post->postulante_id?$post->getPostulante->first_name:"") }} {{ utf8_encode($post->postulante_id?$post->getPostulante->last_name:"") }}</td>
               <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->cedula:"",0,".",".") }} </td>
               <td class="text-center">{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
               <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->ingreso:"",0,".",".") }} </td>
