@@ -30,6 +30,8 @@ Route::get('projects/ajax/{state_id?}/cities', 'ProjectController@distrito');
 Route::get('projects/ajax/{state_id?}/lands', 'ProjectController@lands');
 Route::get('projects/ajax/{state_id?}/typology', 'ProjectController@typology');
 
+Route::Get('sinjson/{id}', 'ProjectController@distritosinjson');
+
 //Postulantes
 Route::get('projects/{id}/postulantes', 'PostulantesController@index');
 Route::post('projects/{id}/postulantes/create', 'PostulantesController@create');

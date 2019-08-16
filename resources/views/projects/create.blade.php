@@ -139,9 +139,25 @@
 
 @stop
 @section('js')
+<script>
+    $(document).ready(function(){
+      $('select[name="state_id"]').change(function(){
+        var categoria = $(this).val();
+        $.get('{{URL::to('/sinjson')}}'+'/'+categoria, function(data){
+            console.log(data);
+            $('select[name="city_id"]').empty();
+            $('select[name="city_id"]').append('<option value="">Selecciona un Distrito</option>');
+                            $.each(data, function(key, value) {
+                                $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
+                            });
 
+        });
+      });
+    });
+  </script>
     <script type="text/javascript">
-    $('select[name="state_id"]').on('change', function() {
+
+    $('select[name="state_idsdd"]').on('change', function() {
                 var stateID = $(this).val();
                 if(stateID) {
                     $.ajax({

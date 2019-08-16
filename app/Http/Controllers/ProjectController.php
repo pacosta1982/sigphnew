@@ -211,6 +211,14 @@ class ProjectController extends Controller
         return json_encode($dpto , JSON_UNESCAPED_UNICODE);
     }
 
+
+    public function distritosinjson($dptoid){
+        //$dpto =
+        return Distrito::where('CiuDptoID', $dptoid)->get()->sortBy("CiuNom")->pluck("CiuNom","CiuId");
+        //return json_encode($dpto, JSON_FORCE_OBJECT);
+        //return json_encode($dpto , JSON_UNESCAPED_UNICODE);
+    }
+
     public function lands($dptoid){
         $dpto = ModalityHasLand::join('lands', 'modality_has_lands.land_id', '=', 'lands.id')
         ->where('modality_id', $dptoid)->get()->sortBy("name")->pluck("name","land_id");
