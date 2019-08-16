@@ -19,7 +19,7 @@
       <div class="col-xs-12">
         <h2 class="page-header">
           <i class="fa fa-university"></i> {{ $project->name }}
-          <small class="pull-right">Fecha de Creación:  {{ $project->created_at ? $project->created_at->toDateString() : null  }}</small>
+          <small class="pull-right"></small>
         </h2>
       </div>
       <!-- /.col -->
