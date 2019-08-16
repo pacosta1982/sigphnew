@@ -10,14 +10,14 @@ class Project extends Model
     //public $timestamps = false;
 
     //protected $dateFormat = 'd-m-Y H:i:s';
-    //protected $dateFormat = 'Y-m-d H:i:s.v';
+    protected $dateFormat = 'Y-m-d H:i:s.v';
 
     //protected $dates = ['created_at'];
 
-    public function getDateFormat()
+    /*public function getDateFormat()
     {
         return 'Y-d-m H:i:s.v';
-    }
+    }*/
 
     protected $fillable = ['name', 'phone', 'sat_id','state_id','city_id','land_id','modalidad_id','localidad','leader_name','typology_id'];
 
