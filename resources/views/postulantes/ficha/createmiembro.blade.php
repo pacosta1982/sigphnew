@@ -86,7 +86,7 @@
                     </div>
                     <div class="form-group {{ $errors->has('birthdate') ? 'has-error' : '' }}">
                         <label>Fecha de Nacimiento</label>
-                        <input type="text" class="form-control" name="birthdate" value="{{ $fecha }}"  readonly>
+                        <input type="text" class="form-control" name="birthdate" value="{{ substr($fecha, 0, 10) }}"  readonly>
                         {!! $errors->first('birthdate','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('asentamiento') ? 'has-error' : '' }}">
