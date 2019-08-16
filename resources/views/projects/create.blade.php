@@ -149,7 +149,7 @@
                         type: "GET",
                         dataType: "json",
                         success:function(data) {
-
+                            console.log(data);
                             $('select[name="city_id"]').empty();
                             $('select[name="city_id"]').append('<option value="">Selecciona un Distrito</option>');
                             //data = encode_utf8(data);
