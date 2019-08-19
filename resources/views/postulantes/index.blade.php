@@ -76,7 +76,7 @@
               <td class="text-center">{{ \Carbon\Carbon::parse( $post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
               <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->ingreso:"",0,".",".") }} </td>
               <td class="text-center">{{ $post->getMembers->count() + 1 }}</td>
-              <td class="text-center">
+              <td class="text-center" style="width: 150px;">
                     <div class="btn-group">
                             <button type="button" class="btn btn-info">Acciones</button>
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">

@@ -24,7 +24,7 @@
               <td class="text-center">{{ \Carbon\Carbon::parse( $mi->postulante_id?$mi->getPostulante->birthdate:"")->age }} </td>
               <td>{{ $mi->miembro_id?$mi->getParentesco->name:"" }}</td>
               <td class="text-center">{{ number_format($mi->miembro_id?$mi->getPostulante->ingreso:"",0,".",".") }} </td>
-              <td class="text-center">
+              <td class="text-center" style="width: 150px;">
                     <div class="btn-group">
                             <button type="button" class="btn btn-info">Acciones</button>
                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
