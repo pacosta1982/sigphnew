@@ -41,7 +41,7 @@
         <td>{{utf8_encode($project->city_id)}}</td>
         <td>{{utf8_encode($project->modalidad_id?$project->getModality->name:"")}}</td>
         <td>N/A</td>
-        <td style="text-align:center">
+        <td style="text-align:center; width: 150px;">
                 <div class="btn-group">
                         <button type="button" class="btn btn-info">Acciones</button>
                         <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
