@@ -113,14 +113,14 @@
               <div class="col-md-4">
                 <div class="form-group {{ $errors->has('city_id') ? 'has-error' : '' }}">
                     <label for="exampleInputPassword1">Distrito</label>
-                    <input required type="text" class="form-control" name="city_id" value="{{ old('city_id',isset($project['city_id'])?$project['city_id']:'') }}" placeholder="Ingrese Distrito">
+                    <input required type="text" class="form-control" name="city_id" value="{{ old('city_id',isset($project['city_id'])?utf8_encode($project['city_id']):'') }}" placeholder="Ingrese Distrito">
                     {!! $errors->first('city_id','<span class="help-block">:message</span>') !!}
                 </div>
               </div>
               <div class="col-md-4">
                 <div class="form-group {{ $errors->has('localidad') ? 'has-error' : '' }}">
                     <label>Localidad</label>
-                    <input type="text" required class="form-control" name="localidad" value="{{ old('localidad',isset($project['localidad'])?$project['localidad']:'') }}"  placeholder="Ingrese Localidad">
+                    <input type="text" required class="form-control" name="localidad" value="{{ old('localidad',isset($project['localidad'])?utf8_encode($project['localidad']):'') }}"  placeholder="Ingrese Localidad">
                     {!! $errors->first('localidad','<span class="help-block">:message</span>') !!}
                 </div>
               </div>
