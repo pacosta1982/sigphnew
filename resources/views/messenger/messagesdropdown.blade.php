@@ -36,7 +36,7 @@
   <li class="dropdown user user-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
       <img src="{{ Gravatar::get($user->email) }}" class="user-image" alt="User Image">
-      <span class="hidden-xs">{{$user->name}}</span>
+      <span class="hidden-xs">{{ utf8_encode($user->name)}}</span>
     </a>
     <ul class="dropdown-menu">
       <!-- User image -->
@@ -44,7 +44,7 @@
         <img src="{{ Gravatar::get($user->email) }}" class="img-circle" alt="User Image">
         <p>
             {{$user->name}} <br>
-          <small>SAT: {{ $user->sat_ruc?$user->getSat->NucNomSat:"" }}</small>
+          <small>SAT: {{ utf8_encode($user->sat_ruc?$user->getSat->NucNomSat:"") }}</small>
         </p>
       </li>
       <!-- Menu Body -->
