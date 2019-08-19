@@ -131,7 +131,7 @@ class ProjectController extends Controller
         $lands = json_decode($lands, true);
 
         $typology = $this->typologyedit($project->typology_id);
-        $typology = json_decode($tipologias, true);
+        $typology = json_decode($typology, true);
         return view('projects.create',compact('title','tierra','typology','lands','departamentos','modalidad','project','tipologias'));
     }
 
