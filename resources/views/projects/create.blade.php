@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                         <label>Nombre del Proyecto</label>
-                        <input type="text" required class="form-control" name="name" value="{{ old('name',isset($project['name'])?$project['name']:'') }}"  placeholder="Ingrese Nombre del Proyecto">
+                        <input type="text" required class="form-control" name="name" value="{{ old('name',isset($project['name'])?utf8_encode($project['name']):'') }}"  placeholder="Ingrese Nombre del Proyecto">
                         {!! $errors->first('name','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('leader_name') ? 'has-error' : '' }}">
@@ -37,7 +37,7 @@
                     <div class="form-group {{ $errors->has('sat_id') ? 'has-error' : '' }}">
                         <label>SAT</label>
                         <input type="hidden" name="sat_id" value="{{ $user->sat_ruc }}">
-                        <input type="text" class="form-control" value="{{ $user->sat_ruc?$user->getSat->NucNomSat:"" }}" readonly>
+                        <input type="text" class="form-control" value="{{ utf8_encode($user->sat_ruc?$user->getSat->NucNomSat:"") }}" readonly>
                         {!! $errors->first('sat_id','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('phone') ? 'has-error' : '' }}">
