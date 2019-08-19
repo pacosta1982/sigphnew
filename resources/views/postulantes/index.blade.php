@@ -86,7 +86,7 @@
                             <ul class="dropdown-menu" role="menu">
                               <li><a href="{!! action('PostulantesController@show', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Ver</a></li>
                               <li><a href="{!! action('PostulantesController@edit', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Editar</a></li>
-                              <li><a href="#">Eliminar</a></li>
+                              <li><a class="feed-id"data-toggle="modal" data-id="{{ $post->postulante_id }}" data-target="#modal-danger" data-title="{{ utf8_encode($post->postulante_id?$post->getPostulante->first_name:"") }} {{ utf8_encode($post->postulante_id?$post->getPostulante->last_name:"") }}" href="#">Eliminar</a></li>
                             </ul>
                           </div>
               </td>
@@ -143,7 +143,7 @@
             <form action="{{ action('PostulantesController@destroy') }}" method="post">
                     {{ csrf_field() }}
             <p id="demo"></p>
-            <input id="id" name="id" type="hidden" value="" />
+            <input id="delete_id" name="delete_id" type="hidden" value="" />
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
@@ -164,7 +164,7 @@
     $(document).ready(function ()
     { $('body').on('click', '.feed-id',function(){
         document.getElementById("delete_id").value = $(this).attr('data-id');
-        document.getElementById("demo").innerHTML = 'Esta seguro de eliminar el Postulante: "'+$(this).attr('data-title')+'"';
+        document.getElementById("demo").innerHTML = 'Esta seguro de eliminar el Postulante: "'+$(this).attr('data-title')+'" <br> Esta acción no se puede deshacer!!!';
         console.log($(this).attr('data-id'));
         console.log($(this).attr('data-title'));
         });

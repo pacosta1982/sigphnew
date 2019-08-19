@@ -33,7 +33,7 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                               <li><a href="{!! action('PostulantesController@editmiembro', ['id'=>$project->id,'idpostulantes'=>$mi->postulante_id?$mi->getPostulante->id:""]) !!}">Editar</a></li>
-                              <li><a href="#">Eliminar</a></li>
+                              <li><a class="feed-idmiembro"data-toggle="modal" data-id="{{ $mi->miembro_id }}" data-target="#modal-danger" data-title="{{ $mi->miembro_id?$mi->getPostulante->first_name:"" }} {{ $mi->miembro_id?$mi->getPostulante->last_name:"" }}" href="">Eliminar</a></li>
                             </ul>
                           </div>
               </td>
@@ -73,3 +73,50 @@
     </div>
     <!-- /.modal-dialog -->
   </div>
+
+  <div class="modal modal-danger fade" id="modal-danger">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title"><i class="fa  fa-warning"></i> Eliminar Miembro</h4>
+        </div>
+        <div class="modal-body">
+            <form action="{{ action('PostulantesController@destroymiembro') }}" method="post">
+                    {{ csrf_field() }}
+            <p id="demo"></p>
+            <input id="delete_idmiembro" name="delete_idmiembro" type="hidden" value="" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-outline">Eliminar</button>
+        </div>
+    </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  @section('js')
+  <script type="text/javascript">
+  $(document).ready(function ()
+  {
+
+      $('body').on('click', '.feed-id',function(){
+      document.getElementById("delete_id").value = $(this).attr('data-id');
+      document.getElementById("demo").innerHTML = 'Esta seguro de eliminar el documento: "'+$(this).attr('data-title')+'"';
+      console.log($(this).attr('data-id'));
+      console.log($(this).attr('data-title'));
+      });
+
+      $('body').on('click', '.feed-idmiembro',function(){
+      document.getElementById("delete_idmiembro").value = $(this).attr('data-id');
+      document.getElementById("demo").innerHTML = 'Esta seguro de eliminar el Miembro: "'+$(this).attr('data-title')+'" <br> Esta acción no se puede deshacer!!!';
+      console.log($(this).attr('data-id'));
+      console.log($(this).attr('data-title'));
+      });
+
+  });
+  </script>
+@endsection

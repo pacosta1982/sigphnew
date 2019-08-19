@@ -474,27 +474,30 @@ class PostulantesController extends Controller
 
     public function destroy(Request $request)
     {
-        //
-        $post = ProjectHasPostulantes::where('postulante_id',$request->id)->get();
-        ProjectHasPostulantes::find($post->id)->delete();
 
-        $dis = PostulanteHasDiscapacidad::where('postulante_id',$request->id)->get();
-        ProjectHasPostulantes::find($dis->id)->delete();
 
-        Postulante::find($request->id)->delete();
+        $postulante = ProjectHasPostulantes::where('postulante_id',$request->delete_id)->first();
+
+
+        if ($postulante->getMembers->count() > 0) {
+            return back()->with('error', 'Debe eliminar todos los miembros antes de eliminar el postulante!');
+        }else{
+
+        ProjectHasPostulantes::where('postulante_id',$request->delete_id)->delete();
+        PostulanteHasDiscapacidad::where('postulante_id',$request->delete_id)->delete();
+        Postulante::find($request->delete_id)->delete();
+
         return back()->with('error', 'Se ha eliminado el Postulante!');
+        }
+
     }
 
     public function destroymiembro(Request $request)
     {
-        //
-        $post = PostulanteHasBeneficiary::where('miembro_id',$request->id)->get();
-        PostulanteHasBeneficiary::find($post->id)->delete();
 
-        $dis = PostulanteHasDiscapacidad::where('postulante_id',$request->id)->get();
-        ProjectHasPostulantes::find($dis->id)->delete();
-
-        Postulante::find($request->id)->delete();
+        PostulanteHasBeneficiary::where('miembro_id',$request->delete_idmiembro)->delete();
+        PostulanteHasDiscapacidad::where('postulante_id',$request->delete_idmiembro)->delete();
+        Postulante::find($request->delete_idmiembro)->delete();
         return back()->with('error', 'Se ha eliminado el Miembro!');
     }
 
