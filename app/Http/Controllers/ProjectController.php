@@ -123,8 +123,8 @@ class ProjectController extends Controller
         $departamentos = Departamento::where('DptoId','<',18)
                         ->orderBy('DptoNom', 'asc')->get();
         $project=Project::find($id);
-        $cities = $this->distrito($project->state_id);
-        $cities = json_decode($cities, true);
+        //$cities = $this->distrito($project->state_id);
+        //$cities = json_decode($cities, true);
         $tipologias = Typology::all();
 
         $lands = $this->lands($project->land_id);
@@ -132,7 +132,7 @@ class ProjectController extends Controller
 
         $typology = $this->typologyedit($project->typology_id);
         $typology = json_decode($tipologias, true);
-        return view('projects.create',compact('title','tierra','typology','lands','departamentos','modalidad','project','cities','tipologias'));
+        return view('projects.create',compact('title','tierra','typology','lands','departamentos','modalidad','project','tipologias'));
     }
 
     /**

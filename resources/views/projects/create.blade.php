@@ -135,30 +135,6 @@
 
     <script type="text/javascript">
 
-    $('select[name="state_idsdd"]').on('change', function() {
-                var stateID = $(this).val();
-                if(stateID) {
-                    $.ajax({
-                        url: '{{URL::to('/projects')}}/ajax/'+stateID+"/cities",
-                        type: "GET",
-                        dataType: "json",
-                        success:function(data) {
-                            console.log(data);
-                            $('select[name="city_id"]').empty();
-                            $('select[name="city_id"]').append('<option value="">Selecciona un Distrito</option>');
-                            //data = encode_utf8(data);
-                            $.each(data, function(key, value) {
-
-                                $('select[name="city_id"]').append('<option value="'+ key +'">'+ value +'</option>');
-                            });
-
-                        }
-                    });
-                }else{
-                    $('select[name="city_id"]').empty();
-                }
-            });
-
             $('select[name="modalidad_id"]').on('change', function() {
                 var stateID = $(this).val();
                 if(stateID) {

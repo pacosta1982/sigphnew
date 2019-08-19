@@ -17,7 +17,7 @@ class Discapacidad extends Model
 
     protected $table = 'discapacidad';
     // protected $primaryKey = 'id';
-    // public $timestamps = false;
+    public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['name'];
     // protected $hidden = [];
