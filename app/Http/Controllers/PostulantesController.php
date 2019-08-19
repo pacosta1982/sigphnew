@@ -472,6 +472,32 @@ class PostulantesController extends Controller
             ->with('success', 'Se ha agregado un Archivo!');
     }
 
+    public function destroy(Request $request)
+    {
+        //
+        $post = ProjectHasPostulantes::where('postulante_id',$request->id)->get();
+        ProjectHasPostulantes::find($post->id)->delete();
+
+        $dis = PostulanteHasDiscapacidad::where('postulante_id',$request->id)->get();
+        ProjectHasPostulantes::find($dis->id)->delete();
+
+        Postulante::find($request->id)->delete();
+        return back()->with('error', 'Se ha eliminado el Postulante!');
+    }
+
+    public function destroymiembro(Request $request)
+    {
+        //
+        $post = PostulanteHasBeneficiary::where('miembro_id',$request->id)->get();
+        PostulanteHasBeneficiary::find($post->id)->delete();
+
+        $dis = PostulanteHasDiscapacidad::where('postulante_id',$request->id)->get();
+        ProjectHasPostulantes::find($dis->id)->delete();
+
+        Postulante::find($request->id)->delete();
+        return back()->with('error', 'Se ha eliminado el Miembro!');
+    }
+
     public function destroyfile(Request $request)
     {
 

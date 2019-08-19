@@ -42,6 +42,9 @@ Route::post('editpostulante', 'PostulantesController@update');
 Route::post('postulantes/upload', 'PostulantesController@upload');
 Route::post('postulantes/destroyfile', 'PostulantesController@destroyfile');
 
+Route::post('postulantes/destroy', 'PostulantesController@destroy');
+Route::post('postulantes/destroymiembro', 'PostulantesController@destroymiembro');
+
 Route::get('generate-pdf/{id}','PostulantesController@generatePDF');
 
 //Miembros

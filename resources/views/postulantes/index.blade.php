@@ -131,5 +131,43 @@
     <!-- /.modal-dialog -->
   </div>
 
+  <div class="modal modal-danger fade" id="modal-danger">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title"><i class="fa  fa-warning"></i> Eliminar Postulante</h4>
+        </div>
+        <div class="modal-body">
+            <form action="{{ action('PostulantesController@destroy') }}" method="post">
+                    {{ csrf_field() }}
+            <p id="demo"></p>
+            <input id="id" name="id" type="hidden" value="" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-outline">Eliminar</button>
+        </div>
+    </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
 
 @stop
+
+@section('js')
+    <script type="text/javascript">
+    $(document).ready(function ()
+    { $('body').on('click', '.feed-id',function(){
+        document.getElementById("delete_id").value = $(this).attr('data-id');
+        document.getElementById("demo").innerHTML = 'Esta seguro de eliminar el Postulante: "'+$(this).attr('data-title')+'"';
+        console.log($(this).attr('data-id'));
+        console.log($(this).attr('data-title'));
+        });
+    });
+    </script>
+@endsection
