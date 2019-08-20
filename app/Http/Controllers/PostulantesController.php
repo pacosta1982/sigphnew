@@ -63,6 +63,13 @@ class PostulantesController extends Controller
 
             if ($expedientes->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
+            }else{
+                $todos = IVMSOL::where('SolPerCod',$request->input('cedula'))
+                ->where('SolEtapa','B')
+                ->first();
+                if ($todos) {
+                    return redirect()->back()->with('error', 'Ya es Beneficiario Final!');
+                }
             }
 
             if ($certificados->count() >= 1) {
@@ -179,6 +186,13 @@ class PostulantesController extends Controller
 
             if ($expedientes->count() >= 1) {
                 return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
+            }else{
+                $todos = IVMSOL::where('SolPerCod',$request->input('cedula'))
+                ->where('SolEtapa','B')
+                ->first();
+                if ($todos) {
+                    return redirect()->back()->with('error', 'Ya es Beneficiario Final!');
+                }
             }
 
             if ($certificados->count() >= 1) {
