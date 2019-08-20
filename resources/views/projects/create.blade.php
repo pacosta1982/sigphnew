@@ -23,7 +23,7 @@
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                         <label>Nombre del Proyecto</label>
-                        <input type="text" required class="form-control" name="name" value="{{ old('name',isset($project['name'])?utf8_encode($project['name']):'') }}"  placeholder="Ingrese Nombre del Proyecto">
+                        <input type="text" required class="form-control" name="name" value="{{ old('name',isset($project['name'])?utf8_decode($project['name']):'') }}"  placeholder="Ingrese Nombre del Proyecto">
                         {!! $errors->first('name','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('leader_name') ? 'has-error' : '' }}">
