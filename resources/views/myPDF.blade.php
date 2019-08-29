@@ -4,7 +4,7 @@
 	<title>Lista de Postulantes</title>
 </head>
 <body>
-    <img src="{{public_path('images/logofull.png')}}" class="imagencentro" width="650" >
+    <img src="{{public_path('img/logofull.png')}}" class="imagencentro" width="650" >
     <h2>Proyecto: Comisión SAN JOSE</h2>
     <h4>Programa: FONAVIS</h4>
           <p>
@@ -24,6 +24,7 @@
           <th class="text-center">Cédula</th>
           <th class="text-center">Edad</th>
           <th class="text-center">Ingreso</th>
+          <th class="text-center">Nivel</th>
           <th class="text-center">Miembros</th>
 
         </tr>
@@ -33,7 +34,8 @@
           <td>{{ $post->postulante_id?$post->getPostulante->first_name:"" }} {{ $post->postulante_id?$post->getPostulante->last_name:"" }}</td>
           <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->cedula:"",0,".",".") }} </td>
           <td class="text-center">{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
-          <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->ingreso:"",0,".",".") }} </td>
+          <td class="text-center">{{ number_format(App\Models\ProjectHasPostulantes::getIngreso($post->postulante_id),0,".",".") }} </td>
+          <td class="text-center">{{ App\Models\ProjectHasPostulantes::getNivel($post->postulante_id) }}</td>
           <td class="text-center">{{ $post->getMembers->count() + 1 }}</td>
         </tr>
         @endforeach
