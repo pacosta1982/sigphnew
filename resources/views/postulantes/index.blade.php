@@ -23,8 +23,8 @@
           <div class="row">
             <div class="col-md-4">
               <p>
-                <strong>Departamento: </strong>{{utf8_encode($project->state_id?$project->getState->DptoNom:"")}}<br>
-                <strong>Distrito:</strong> {{utf8_encode($project->city_id)}}<br>
+                <strong>Departamento: </strong>{{$project->state_id?$project->getState->DptoNom:""}}<br>
+                <strong>Distrito:</strong> {{$project->city_id}}<br>
                 <strong>Modalidad:</strong> {{utf8_encode($project->modalidad_id?$project->getModality->name:"")}}<br>
               </p>
             </div>
