@@ -17,7 +17,7 @@
 
     body {
                 margin-top: 2cm;
-                margin-bottom: 2cm;
+
             }
 
     #cabecera {
@@ -56,7 +56,7 @@
 </head>
 <body>
     <header>
-        <img src="{{public_path('img/logofull.png')}}" class="imagencentro" width="700" >
+        <img src="{{public_path('img/logofull.png')}}" class="imagencentro" width="690" >
     </header>
 
 
