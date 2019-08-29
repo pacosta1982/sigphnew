@@ -55,6 +55,12 @@
     </style>
 </head>
 <body>
+        <script type="text/php">
+            if (isset($pdf)) {
+              $font = $fontMetrics->getFont("Arial", "bold");
+              $pdf->page_text(535, 760, "Pagina {PAGE_NUM}", $font, 10, array(0, 0, 0));
+            }
+          </script>
     <header>
         <img src="{{public_path('img/logofull.png')}}" class="imagencentro" width="690" >
     </header>
@@ -103,4 +109,5 @@
       </tbody>
     </table>
 </body>
+
 </html>
