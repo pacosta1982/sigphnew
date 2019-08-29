@@ -20,6 +20,11 @@ class Stage extends Model
     // public $timestamps = false;
     // protected $guarded = ['id'];
     protected $fillable = ['name'];
+    public function getDateFormat()
+    {
+        return 'Y-d-m H:i:s.v';
+    }
+    //protected $dateFormat = 'Y-m-d H:i:s.v';
     // protected $hidden = [];
     // protected $dates = [];
 

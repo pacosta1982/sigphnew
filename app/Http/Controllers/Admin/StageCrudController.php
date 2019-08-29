@@ -25,7 +25,7 @@ class StageCrudController extends CrudController
         */
         $this->crud->setModel('App\Models\Stage');
         $this->crud->setRoute(config('backpack.base.route_prefix') . '/stage');
-        $this->crud->setEntityNameStrings('stage', 'stages');
+        $this->crud->setEntityNameStrings('stage', 'etapas');
 
         /*
         |--------------------------------------------------------------------------

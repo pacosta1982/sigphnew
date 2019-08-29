@@ -40,7 +40,13 @@
         <td>{{utf8_encode($project->state_id?$project->getState->DptoNom:"")}}</td>
         <td>{{utf8_encode($project->city_id)}}</td>
         <td>{{utf8_encode($project->modalidad_id?$project->getModality->name:"")}}</td>
-        <td>N/A</td>
+        <td>
+                @if (isset($project->getEstado->stage_id))
+                <label for="" class="text-green"> {{ $project->getEstado->stage_id?$project->getEstado->getStage->name:"" }}</label>
+                @else
+                <label for="" class="text-yellow">Pendiente</label>
+                @endif
+        </td>
         <td style="text-align:center; width: 150px;">
                 <div class="btn-group">
                         <button type="button" class="btn btn-info">Acciones</button>

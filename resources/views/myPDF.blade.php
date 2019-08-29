@@ -5,12 +5,12 @@
 </head>
 <body>
     <img src="{{public_path('images/logofull.png')}}" class="imagencentro" width="650" >
-    <h2>Proyecto: {{ $project->name }}</h2>
+    <h2>Proyecto: Comisión SAN JOSE</h2>
     <h4>Programa: FONAVIS</h4>
           <p>
-            <strong>SAT:</strong> {{$project->sat_id?$project->getSat->NucNomSat:""}}<br>
+            <strong>SAT:</strong>GENERICO S.A.<br>
             <strong>Departamento: </strong>{{$project->state_id?$project->getState->DptoNom:""}}<br>
-            <strong>Distrito:</strong> {{$project->city_id?$project->getCity->CiuNom:""}}<br>
+            <strong>Distrito:</strong> {{$project->city_id}}<br>
             <strong>Modalidad:</strong> {{$project->modalidad_id?$project->getModality->name:""}}<br>
             <strong>Tipo de Terreno:</strong> {{$project->land_id?$project->getLand->name:""}}<br>
             <strong>Total Postulantes:</strong> {{ $postulantes->count() }}<br>

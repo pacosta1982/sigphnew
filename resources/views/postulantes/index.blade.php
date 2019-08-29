@@ -36,24 +36,41 @@
                 </p>
               </div>
               <div class="col-md-4">
-                <p class="text-center">
+                <p>
+                    <strong>Estado: </strong>  <br>
+                    @if (isset($project->getEstado->stage_id))
+                    <label for="" class="text-green"> {{ $project->getEstado->stage_id?$project->getEstado->getStage->name:"" }}</label>
+                    @else
+                    <label for="" class="text-yellow">Pendiente de Enviar</label>
+                    @endif
 
                 </p>
-
               </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+  @if (!isset($project->getEstado->stage_id))
+  <button type="button" data-toggle="modal" data-id="{{ $project->id }}" data-title="{{ $project->name }}" data-target="#modal-enviar" class="btn btn-block btn-success btn-lg feed-id-proyecto"><i class="fa fa-send"></i> Enviar Proyecto al MUVH <i class="fa fa-send"></i></button>
+  @else
+  <a href="{!! action('PostulantesController@generatePDF', ['id'=>$project->id]) !!}"> <button type="button" class="btn btn-info btn-block btn-lg btn-lg">
+        <i class="fa fa-file-excel-o"></i> Imprimir Listado
+        </button></a>
+  @endif
+
+  <br>
   <div class="row">
     <div class="col-md-12">
       <div class="box">
         <div class="box-header">
           <h3 class="box-title"><i class="fa fa-users"></i> Postulantes</h3>
+          @if (!isset($project->getEstado->stage_id))
           <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default">
             <i class="fa fa-plus-circle"></i> Agregar Postulante
             </button>
+          @endif
+
         </div>
         <!-- /.box-header -->
         <div class="box-body">
@@ -63,7 +80,7 @@
               <th>#</th>
               <th>Nombre</th>
               <th class="text-center">Cédula</th>
-              <th class="text-center">Fecha Nacimiento</th>
+              <th class="text-center">Edad</th>
               <th class="text-center">Ingreso</th>
               <th class="text-center">Miembros</th>
               <th class="text-center">Acciones</th>
@@ -85,8 +102,11 @@
                             </button>
                             <ul class="dropdown-menu" role="menu">
                               <li><a href="{!! action('PostulantesController@show', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Ver</a></li>
+                              @if (!isset($project->getEstado->stage_id))
                               <li><a href="{!! action('PostulantesController@edit', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Editar</a></li>
                               <li><a class="feed-id"data-toggle="modal" data-id="{{ $post->postulante_id }}" data-target="#modal-danger" data-title="{{ utf8_encode($post->postulante_id?$post->getPostulante->first_name:"") }} {{ utf8_encode($post->postulante_id?$post->getPostulante->last_name:"") }}" href="#">Eliminar</a></li>
+                              @endif
+
                             </ul>
                           </div>
               </td>
@@ -97,7 +117,6 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer clearfix">
-
         </div>
       </div>
     </div>
@@ -157,17 +176,55 @@
   </div>
 
 
+  <div class="modal modal-info fade" id="modal-enviar">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title"><i class="fa  fa-send"></i> Enviar Proyecto al MUVH</h4>
+        </div>
+        <div class="modal-body">
+            <form action="{{ action('ProjectController@send') }}" method="post">
+                    {{ csrf_field() }}
+            <p id="demoproy"></p>
+            <input id="send_id" name="send_id" type="hidden" value="" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-outline">Enviar</button>
+        </div>
+    </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
+
+
+
+
 @stop
 
 @section('js')
     <script type="text/javascript">
     $(document).ready(function ()
-    { $('body').on('click', '.feed-id',function(){
+    {
+        $('body').on('click', '.feed-id',function(){
         document.getElementById("delete_id").value = $(this).attr('data-id');
         document.getElementById("demo").innerHTML = 'Esta seguro de eliminar el Postulante: "'+$(this).attr('data-title')+'" <br> Esta acción no se puede deshacer!!!';
         console.log($(this).attr('data-id'));
         console.log($(this).attr('data-title'));
         });
+
+        $('body').on('click', '.feed-id-proyecto',function(){
+        document.getElementById("send_id").value = $(this).attr('data-id');
+        document.getElementById("demoproy").innerHTML = 'Esta seguro de enviar el proyecto: "'+$(this).attr('data-title')+'" <br> Esta acción no se puede deshacer!!!';
+        console.log($(this).attr('data-id'));
+        console.log($(this).attr('data-title'));
+        });
+
     });
     </script>
 @endsection

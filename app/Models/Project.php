@@ -42,4 +42,13 @@ class Project extends Model
     public function getModality() {
         return $this->hasOne('App\Models\Modality','id','modalidad_id');
     }
+
+    /*public function estado()
+    {
+        return $this->hasMany('App\Models\ProjectStatus','id','');
+    }*/
+
+    public function getEstado() {
+        return $this->hasOne('App\Models\ProjectStatus', 'project_id', 'id')->latest();
+    }
 }

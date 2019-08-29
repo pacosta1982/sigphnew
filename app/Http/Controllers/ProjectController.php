@@ -16,6 +16,7 @@ use App\Models\Typology;
 use App\Models\Land_project;
 use App\Models\ModalityHasLand;
 use App\Models\Project_tipologies;
+use App\Models\ProjectStatus;
 use App\User;
 
 use App\Http\Requests\StoreProject;
@@ -193,6 +194,18 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function send(Request $request)
+    {
+        //return $request;
+        $state = new ProjectStatus();
+        $state->project_id=$request->send_id;
+        $state->stage_id='1';
+        $state->user_id=Auth::user()->id;
+        $state->record='Proyecto Enviado!';
+        $state->save();
+        return redirect('projects/'.$request->send_id.'/postulantes')->with('success', 'El proyecto se ha enviado a MUVH correctamente!');
     }
 
     public function destroyfile(Request $request)

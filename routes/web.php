@@ -25,6 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('projects', 'ProjectController');
 Route::post('projects/upload', 'ProjectController@upload');
 Route::post('projects/destroyfile', 'ProjectController@destroyfile');
+Route::post('projects/send', 'ProjectController@send');
+
 
 Route::get('projects/ajax/{state_id?}/cities', 'ProjectController@distrito');
 Route::get('projects/ajax/{state_id?}/lands', 'ProjectController@lands');
