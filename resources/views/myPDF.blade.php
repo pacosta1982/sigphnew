@@ -16,15 +16,15 @@
     }
 
     #customers td, #customers th {
-    border: 1px solid #ddd;
+    border: 1px solid #DDDDDD;
     font-size: x-small;
     padding: 8px;
     }
 
-    #customers tr:nth-child(even){background-color: #f2f2f2;}
+    #customers tr:nth-child(even){background-color: #FFFFFF;}
 
     #customers tr:hover {
-        background-color: #ddd;
+        background-color: #DDDDDD;
         }
 
     #customers th {
