@@ -37,7 +37,8 @@
     padding: 8px;
     }
 
-    #customers tr:nth-child(even){background-color: #F2F2F2;}
+    #customers tr:nth-child(even){background-color: #CCC;}
+    #customers tr:nth-child(odd){background-color: #FFF;}
 
     #customers tr:hover {
         background-color: #DDDDDD;
