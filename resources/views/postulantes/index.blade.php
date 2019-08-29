@@ -41,7 +41,7 @@
                     @if (isset($project->getEstado->stage_id))
                     <label for="" class="text-green"> {{ $project->getEstado->stage_id?$project->getEstado->getStage->name:"" }}</label>
                     @else
-                    <label for="" class="text-yellow">Pendiente de Enviar</label>
+                    <label for="" class="text-yellow">Pendiente</label>
                     @endif
 
                 </p>
