@@ -4,6 +4,22 @@
     <title>Lista de Postulantes</title>
     <style>
 
+
+
+            /** Define the header rules **/
+    header {
+        position: fixed;
+        top: 0cm;
+        left: 0cm;
+        right: 0cm;
+        height: 3cm;
+    }
+
+    body {
+                margin-top: 2cm;
+                margin-bottom: 2cm;
+            }
+
     #cabecera {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     font-size: x-small;
@@ -21,7 +37,7 @@
     padding: 8px;
     }
 
-    #customers tr:nth-child(even){background-color: #FFFFFF;}
+    #customers tr:nth-child(even){background-color: #F2F2F2;}
 
     #customers tr:hover {
         background-color: #DDDDDD;
@@ -38,7 +54,10 @@
     </style>
 </head>
 <body>
-    <img src="{{public_path('img/logofull.png')}}" class="imagencentro" width="650" >
+    <header>
+        <img src="{{public_path('img/logofull.png')}}" class="imagencentro" width="700" >
+    </header>
+
 
                   <p>
                     <strong>Proyecto:</strong> {{$project->name}}<br>
