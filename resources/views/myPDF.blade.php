@@ -5,10 +5,11 @@
 </head>
 <body>
     <img src="{{public_path('img/logofull.png')}}" class="imagencentro" width="650" >
-    <h2>Proyecto: Comisión SAN JOSE</h2>
+    <h2>Proyecto: {{$project->name}}</h2>
+    <h4>Código: {{$project->id}}</h4>
     <h4>Programa: FONAVIS</h4>
           <p>
-            <strong>SAT:</strong>GENERICO S.A.<br>
+          <strong>SAT:</strong>{{$project->sat_id?$project->getSat->NucNomSat:""}}<br>
             <strong>Departamento: </strong>{{$project->state_id?$project->getState->DptoNom:""}}<br>
             <strong>Distrito:</strong> {{$project->city_id}}<br>
             <strong>Modalidad:</strong> {{$project->modalidad_id?$project->getModality->name:""}}<br>
