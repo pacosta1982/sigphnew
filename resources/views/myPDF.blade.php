@@ -99,7 +99,7 @@
           <th class="center" style="width:10px;">Cédula</th>
           <th class="center" style="width:10px;">Edad</th>
           <th class="center" style="width:10px;">Ingreso</th>
-          <th class="center" style="width:10px;">Nivel</th>
+    <!--      <th class="center" style="width:10px;">Nivel</th> -->
           <th class="center" style="width:10px;">Miembros</th>
 
         </tr>
@@ -110,7 +110,7 @@
           <td class="right" style="width:10px;">{{ number_format($post->postulante_id?$post->getPostulante->cedula:"",0,".",".") }} </td>
           <td class="center">{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
           <td class="right">{{ number_format(App\Models\ProjectHasPostulantes::getIngreso($post->postulante_id),0,".",".") }} </td>
-          <td class="center">{{ App\Models\ProjectHasPostulantes::getNivel($post->postulante_id) }}</td>
+        <!--  <td class="center">{{ App\Models\ProjectHasPostulantes::getNivel($post->postulante_id) }}</td> -->
           <td class="center">{{ $post->getMembers->count() + 1 }}</td>
         </tr>
         @endforeach
