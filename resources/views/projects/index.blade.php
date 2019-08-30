@@ -35,7 +35,7 @@
         @foreach($projects as $project)
         <tr>
         <td>{{$project->name}}</td>
-        <td>{{utf8_encode($project->sat_id?$project->getSat->NucNomSat:"")}}</td>
+        <td>{{$project->sat_id?$project->getSat->NucNomSat:""}}</td>
         <td>{{utf8_encode($project->land_id?$project->getLand->name:"")}}</td>
         <td>{{utf8_encode($project->state_id?$project->getState->DptoNom:"")}}</td>
         <td>{{utf8_encode($project->city_id)}}</td>
@@ -56,7 +56,9 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="{!! action('ProjectController@show', ['id'=>$project->id]) !!}">Ver</a></li>
+                          @if (!isset($project->getEstado->stage_id))
                           <li><a href="{!! action('ProjectController@edit', ['id'=>$project->id]) !!}">Editar</a></li>
+                          @endif
                           <li><a href="{!! action('PostulantesController@index', ['id'=>$project->id]) !!}">Postulantes</a></li>
                         </ul>
                       </div>

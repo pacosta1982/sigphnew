@@ -1,6 +1,10 @@
+@if (!isset($project->getEstado->stage_id))
 <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default">
     <i class="fa fa-plus-circle"></i> Nuevo Documento
 </button>
+@endif
+
+
 <div class="row">
     <div class="col-xs-12 table-responsive">
       <table class="table table-striped">
