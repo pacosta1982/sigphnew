@@ -71,7 +71,7 @@
                     <div id="cabecera">
                     <strong>Código:</strong> {{$project->id}}<br>
                     <strong>Programa:</strong> FONAVIS<br>
-                    <strong>SAT:</strong> {{ utf8_decode($project->sat_id?$project->getSat->NucNomSat:"") }}<br>
+                    <strong>SAT:</strong> {{ utf8_encode($project->sat_id?$project->getSat->NucNomSat:"") }}<br>
                     <strong>Departamento: </strong> {{$project->state_id?$project->getState->DptoNom:""}}<br>
                     <strong>Distrito:</strong> {{$project->city_id}}<br>
                     <strong>Modalidad:</strong> {{$project->modalidad_id?$project->getModality->name:""}}<br>
