@@ -107,7 +107,11 @@
         <tr>
           <td style="width:3px;">{{$key+1}}</td>
           <td>{{ $post->postulante_id?$post->getPostulante->first_name:"" }} {{ $post->postulante_id?$post->getPostulante->last_name:"" }}</td>
-          <td class="right" style="width:10px;">{{ number_format($post->postulante_id?$post->getPostulante->cedula:"",0,".",".") }} </td>
+            @if (is_numeric($post->postulante_id?$post->getPostulante->cedula:""))
+            <td class="text-center">{{ number_format($post->postulante_id?$post->getPostulante->cedula:"",0,".",".")  }} </td>
+            @else
+            <td class="text-center">{{ $post->postulante_id?$post->getPostulante->cedula:""  }} </td>
+            @endif
           <td class="center">{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
           <td class="right">{{ number_format(App\Models\ProjectHasPostulantes::getIngreso($post->postulante_id),0,".",".") }} </td>
         <!--  <td class="center">{{ App\Models\ProjectHasPostulantes::getNivel($post->postulante_id) }}</td> -->
