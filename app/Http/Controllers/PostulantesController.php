@@ -349,7 +349,7 @@ class PostulantesController extends Controller
         //dd($project);
         $tipoproy = Land_project::where('land_id',$project->land_id)->first();
         $documentos = PostulantesDocuments::where('postulante_id',$idpostulante)->get();
-        $docproyecto = Assignment::where('project_type_id',$tipoproy->land_id)
+        $docproyecto = Assignment::where('project_type_id',$tipoproy->project_type_id)
         ->whereNotIn('document_id', $documentos->pluck('document_id'))
         ->where('category_id',2)
         ->get();
