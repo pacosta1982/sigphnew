@@ -95,7 +95,7 @@
                         <option value="">Seleccione el Documento</option>
                             @foreach($docproyecto as $key=>$doc)
                                 <option value="{{$doc->document_id}}"
-                                    >{{ $doc->document_id?$doc->document->name:"" }}</option>
+                                    >{{ utf8_encode($doc->document_id?$doc->document->name:"") }}</option>
                             @endforeach
                     </select>
                     {!! $errors->first('state_id','<span class="help-block">:message</span>') !!}
