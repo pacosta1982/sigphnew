@@ -66,9 +66,7 @@
         <script type="text/php">
             if (isset($pdf)) {
               $font = $fontMetrics->getFont("Arial", "bold");
-              $today = date("d/m/Y h:i:s");
               $pdf->page_text(535, 760, "Pagina {PAGE_NUM}", $font, 10, array(0, 0, 0));
-              $pdf->page_text(40, 760, "Fecha de Impresión: {$today}", $font, 10, array(0, 0, 0));
             }
           </script>
     <header>
@@ -97,12 +95,12 @@
         <tbody>
         <tr>
           <th class="center" style="width:3px;">#</th>
-          <th style="width:400px;">Nombre</th>
+          <th>Nombre</th>
           <th class="center" style="width:10px;">Cédula</th>
           <th class="center" style="width:10px;">Edad</th>
           <th class="center" style="width:10px;">Ingreso</th>
     <!--      <th class="center" style="width:10px;">Nivel</th> -->
-          <th class="center">Celular</th>
+          <th class="center" style="width:10px;">Miembros</th>
 
         </tr>
         @foreach($postulantes as $key=>$post)
@@ -117,7 +115,7 @@
           <td class="center">{{ \Carbon\Carbon::parse($post->postulante_id?$post->getPostulante->birthdate:"")->age }} </td>
           <td class="right">{{ number_format(App\Models\ProjectHasPostulantes::getIngreso($post->postulante_id),0,".",".") }} </td>
         <!--  <td class="center">{{ App\Models\ProjectHasPostulantes::getNivel($post->postulante_id) }}</td> -->
-          <td class="center">{{ $post->postulante_id?$post->getPostulante->mobile:"" }}</td>
+          <td class="center">{{ $post->getMembers->count() + 1 }}</td>
         </tr>
         @endforeach
       </tbody>
