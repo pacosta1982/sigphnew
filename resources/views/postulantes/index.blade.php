@@ -66,9 +66,9 @@
         <div class="box-header">
           <h3 class="box-title"><i class="fa fa-users"></i> Postulantes</h3>
           @if (!isset($project->getEstado->stage_id))
-          <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default">
+       <!--   <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default">
             <i class="fa fa-plus-circle"></i> Agregar Postulante
-            </button>
+            </button> -->
           @endif
 
         </div>
@@ -109,8 +109,8 @@
                             <ul class="dropdown-menu" role="menu">
                               <li><a href="{!! action('PostulantesController@show', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Ver</a></li>
                               @if (!isset($project->getEstado->stage_id))
-                              <li><a href="{!! action('PostulantesController@edit', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Editar</a></li>
-                              <li><a class="feed-id"data-toggle="modal" data-id="{{ $post->postulante_id }}" data-target="#modal-danger" data-title="{{ utf8_encode($post->postulante_id?$post->getPostulante->first_name:"") }} {{ utf8_encode($post->postulante_id?$post->getPostulante->last_name:"") }}" href="#">Eliminar</a></li>
+                            <!--  <li><a href="{!! action('PostulantesController@edit', ['id'=>$project->id,'idpostulantes'=>$post->postulante_id?$post->getPostulante->id:""]) !!}">Editar</a></li> -->
+                            <!--  <li><a class="feed-id"data-toggle="modal" data-id="{{ $post->postulante_id }}" data-target="#modal-danger" data-title="{{ utf8_encode($post->postulante_id?$post->getPostulante->first_name:"") }} {{ utf8_encode($post->postulante_id?$post->getPostulante->last_name:"") }}" href="#">Eliminar</a></li> -->
                               @endif
 
                             </ul>

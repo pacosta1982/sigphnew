@@ -1,7 +1,7 @@
 @if (!isset($project->getEstado->stage_id))
-<button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default">
+<!-- <button type="button" class="btn btn-primary pull-right" data-toggle="modal" data-target="#modal-default">
     <i class="fa fa-plus-circle"></i> Nuevo Documento
-</button>
+</button> -->
 @endif
 
 

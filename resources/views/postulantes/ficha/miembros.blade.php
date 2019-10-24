@@ -1,7 +1,7 @@
 @if (!isset($project->getEstado->stage_id))
-<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal-miembro">
+<!--<button type="button" class="btn btn-success pull-right" data-toggle="modal" data-target="#modal-miembro">
     <i class="fa fa-plus-circle"></i> Nuevo Miembro
-</button>
+</button> -->
 @endif
 
 <br>

@@ -14,10 +14,10 @@
 <div class="box box-primary">
     <div class="box-header with-border">
 
-        <div class="pull-right"><a href="{!! action('ProjectController@create') !!}" class="announce">
+    <!--    <div class="pull-right"><a href="{!! action('ProjectController@create') !!}" class="announce">
             <button class="btn btn-primary" hr type="button"><i class="fa fa-fw fa-plus"></i> Crear Proyecto</button>
         </a></div>
-      </div>
+      </div> -->
     <!-- /.card-header -->
     <div class="card-body p-0">
       <table class="table table-striped">
@@ -57,7 +57,7 @@
                         <ul class="dropdown-menu" role="menu">
                           <li><a href="{!! action('ProjectController@show', ['id'=>$project->id]) !!}">Ver</a></li>
                           @if (!isset($project->getEstado->stage_id))
-                          <li><a href="{!! action('ProjectController@edit', ['id'=>$project->id]) !!}">Editar</a></li>
+                         <!-- <li><a href="{!! action('ProjectController@edit', ['id'=>$project->id]) !!}">Editar</a></li> -->
                           @endif
                           <li><a href="{!! action('PostulantesController@index', ['id'=>$project->id]) !!}">Postulantes</a></li>
                         </ul>
