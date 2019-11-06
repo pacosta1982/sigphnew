@@ -21,7 +21,8 @@ class Project extends Model
         return 'Y-d-m H:i:s.v';
     }*/
 
-    protected $fillable = ['name', 'phone', 'sat_id','state_id','city_id','land_id','modalidad_id','localidad','leader_name','typology_id'];
+    protected $fillable = ['name', 'phone', 'sat_id','state_id','city_id','land_id','modalidad_id','localidad','leader_name',
+    'typology_id','expsocial','exptecnico','action'];
 
     public function getSat() {
         return $this->hasOne('App\Models\Sat','NucCod','sat_id');

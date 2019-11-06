@@ -47,6 +47,19 @@ Route::post('postulantes/destroyfile', 'PostulantesController@destroyfile');
 Route::post('postulantes/destroy', 'PostulantesController@destroy');
 Route::post('postulantes/destroymiembro', 'PostulantesController@destroymiembro');
 
+//Postulantes Actualizacion
+Route::get('projectsactualizacion/{id}/postulantes', 'PostulantesActualizacionController@index');
+Route::post('projectsactualizacion/{id}/postulantes/create', 'PostulantesActualizacionController@create');
+Route::post('savepostulante', 'PostulantesActualizacionController@store');
+Route::get('projectsactualizacion/{id}/postulantes/{idpostulante}', 'PostulantesActualizacionController@show');
+Route::get('projectsactualizacion/{id}/postulantes/{idpostulante}/edit', 'PostulantesActualizacionController@edit');
+Route::post('editpostulante', 'PostulantesActualizacionController@update');
+Route::post('projectsactualizacion/upload', 'PostulantesActualizacionController@upload');
+Route::post('projectsactualizacion/destroyfile', 'PostulantesActualizacionController@destroyfile');
+
+Route::post('projectsactualizacion/destroy', 'PostulantesActualizacionController@destroy');
+Route::post('projectsactualizacion/destroymiembro', 'PostulantesActualizacionController@destroymiembro');
+
 Route::get('generate-pdf/{id}','PostulantesController@generatePDF');
 
 //Miembros
@@ -63,3 +76,6 @@ Route::group(['prefix' => 'messages'], function () {
     Route::get('{id}', ['as' => 'messages.show', 'uses' => 'MessagesController@show']);
     Route::put('{id}', ['as' => 'messages.update', 'uses' => 'MessagesController@update']);
   });
+
+//Actualizacion
+Route::resource('actualizacion', 'ActualizacionController');

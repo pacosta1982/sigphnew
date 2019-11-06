@@ -114,6 +114,11 @@ return [
             'url'         => 'projects',
             'icon'  => 'home',
         ],
+        [
+            'text'        => 'Actualización',
+            'url'         => 'actualizacion',
+            'icon'  => 'refresh',
+        ],
 
     ],
 
