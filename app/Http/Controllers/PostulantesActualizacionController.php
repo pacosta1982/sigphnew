@@ -47,7 +47,9 @@ class PostulantesActualizacionController extends Controller
 
         if ($request->input('cedula')) {
 
-            $expedientes = SIG005::where('NroExpPer',$request->input('cedula'))->where('TexCod',118)->get();
+            $expedientes = SIG005::where('NroExpPer',$request->input('cedula'))
+            ->where('NroExpFch','<','2015-01-01 00:00:00.000')
+            ->where('TexCod',118)->get();
             $certificados = SHMCER::where('CerPosCod',$request->input('cedula'))->get();
             $certificadosconyuge = SHMCER::where('CerCoCI',$request->input('cedula'))->get();
             $existe = Postulante::where('cedula',$request->input('cedula'))->get();
@@ -61,8 +63,8 @@ class PostulantesActualizacionController extends Controller
                 return redirect()->back()->with('error', 'Ya existe el postulante!');
             }
 
-            if ($expedientes->count() >= 1) {
-                return redirect()->back()->with('error', 'Ya existe expediente de FICHA DE PRE-INSCRIPCION FONAVIS-SVS!');
+            if ($expedientes->count() == 0) {
+                return redirect()->back()->with('error', 'No posse expediente previo!');
             }else{
                 $todos = IVMSOL::where('SolPerCod',$request->input('cedula'))
                 ->where('SolEtapa','B')
@@ -144,9 +146,10 @@ class PostulantesActualizacionController extends Controller
                     $project_id = Project::find($id);
                     //$parentesco = Parentesco::all();
                     $discapacdad = Discapacidad::all();
+                    $nexp = $expedientes[0]->NroExp;
                         //var_dump($datospersona->obtenerPersonaPorNroCedulaResponse);
                     return view('postulantesactualizacion.create',compact('nroexp','cedula','nombre','apellido','fecha','sexo',
-                    'nac','est','title','project_id','discapacdad'/*,'escolaridad','discapacidad','enfermedad','entidades'*/));
+                    'nac','est','title','project_id','discapacdad','nexp'/*,'escolaridad','discapacidad','enfermedad','entidades'*/));
                 }
 
                 //$nombre = $datos->nombres;
@@ -313,7 +316,7 @@ class PostulantesActualizacionController extends Controller
 
         //return $request->all();
         //Postulante ::create($request->all());
-        return redirect('actualizacion/'.$request->project_id.'/postulantes')->with('success', 'Se ha agregado un nuevo Postulante!');
+        return redirect('projectsactualizacion/'.$request->project_id.'/postulantes')->with('success', 'Se ha agregado un nuevo Postulante!');
         //return $request;
     }
 

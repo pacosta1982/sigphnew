@@ -25,6 +25,15 @@
             <input type="text"  name="disc_id" value="{{ isset($disc['id'])?$disc['id']:'' }}"  hidden>
       <div class="box-body">
           <div class="row">
+            <div class="col-md-12">
+                <div class="form-group {{ $errors->has('nexp') ? 'has-error' : '' }}">
+                    <label for="exampleInputPassword1">N° Expediente</label>
+                    <input type="text" required class="form-control" name="nexp" value="{{ old('mobile',isset($nexp)?$nexp:'') }}" placeholder="Ingrese N° de Expediente" readonly>
+                    {!! $errors->first('nexp','<span class="help-block">:message</span>') !!}
+                </div>
+            </div>
+          </div>
+          <div class="row">
                 <div class="col-md-6">
                     <div class="form-group {{ $errors->has('first_name') ? 'has-error' : '' }}">
                         <label>Nombres</label>

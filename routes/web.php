@@ -50,7 +50,7 @@ Route::post('postulantes/destroymiembro', 'PostulantesController@destroymiembro'
 //Postulantes Actualizacion
 Route::get('projectsactualizacion/{id}/postulantes', 'PostulantesActualizacionController@index');
 Route::post('projectsactualizacion/{id}/postulantes/create', 'PostulantesActualizacionController@create');
-Route::post('savepostulante', 'PostulantesActualizacionController@store');
+Route::post('savepostulanteactualizacion', 'PostulantesActualizacionController@store');
 Route::get('projectsactualizacion/{id}/postulantes/{idpostulante}', 'PostulantesActualizacionController@show');
 Route::get('projectsactualizacion/{id}/postulantes/{idpostulante}/edit', 'PostulantesActualizacionController@edit');
 Route::post('editpostulante', 'PostulantesActualizacionController@update');
