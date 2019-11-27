@@ -11,6 +11,7 @@ use App\Models\Modality;
 use App\Models\Typology;
 use App\Models\Land_project;
 use App\Models\Documents;
+use App\Models\SIG005;
 use App\Models\Assignment;
 use App\Models\ModalityHasLand;
 use App\Models\Project_tipologies;
@@ -54,16 +55,27 @@ class ActualizacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-        $title="Crear Proyecto de Actualización";
-        $tierra = Land::all();
-        $modalidad = Modality::all();
-        $departamentos = Departamento::where('DptoId','<',18)
-                        ->orderBy('DptoNom', 'asc')->get();
-        $tipologias = Typology::all();
-        return view('actualizacionprojects.create',compact('title','tierra','departamentos','modalidad','tipologias'));
+        $ver = SIG005::where('NroExp',$request->expediente)
+        ->where('NroExpS','A')
+        ->first();
+
+        if ($ver) {
+            $title="Crear Proyecto de Actualización";
+            $tierra = Land::all();
+            $modalidad = Modality::all();
+            $departamentos = Departamento::where('DptoId','<',18)
+                            ->orderBy('DptoNom', 'asc')->get();
+            $tipologias = Typology::all();
+            $exp = $request->expediente;
+            return view('actualizacionprojects.create',compact('title','tierra','departamentos','modalidad','tipologias','exp'));
+        } else {
+            return redirect('actualizacion')->with('error', 'El expediente no existe!');
+        }
+
+
+
     }
 
 
@@ -155,7 +167,7 @@ class ActualizacionController extends Controller
         $project->leader_name = $request->input("leader_name");
         $project->localidad = $request->input("localidad");
         $project->typology_id = $request->input("typology_id");
-        $project->expsocial = $request->input("expsocial");
+        //$project->expsocial = $request->input("expsocial");
         $project->exptecnico = $request->input("exptecnico");
         $project->save();
 

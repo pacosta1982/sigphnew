@@ -34,7 +34,7 @@
                     </div>
                     <div class="form-group {{ $errors->has('leader_name') ? 'has-error' : '' }}">
                         <label for="exampleInputPassword1">Expediente Social</label>
-                        <input required type="text" class="form-control" name="expsocial" value="{{ old('expsocial',isset($project['expsocial'])?$project['expsocial']:'') }}" placeholder="Ingrese Numero de Expediente Social">
+                        <input required type="text" class="form-control" name="expsocial" value="{{ old('mobile',isset($project['expsocial'])?$project['expsocial']:$exp) }}" placeholder="Ingrese Numero de Expediente Social" readonly>
                         {!! $errors->first('expsocial','<span class="help-block">:message</span>') !!}
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                         {!! $errors->first('phone','<span class="help-block">:message</span>') !!}
                     </div>
                     <div class="form-group {{ $errors->has('exptecnico') ? 'has-error' : '' }}">
-                        <label for="exampleInputPassword1">Expediente Social</label>
+                        <label for="exampleInputPassword1">Expediente Técnico</label>
                         <input required type="text" class="form-control" name="exptecnico" value="{{ old('exptecnico',isset($project['exptecnico'])?$project['exptecnico']:'') }}" placeholder="Ingrese Numero de Expediente Técnico">
                         {!! $errors->first('exptecnico','<span class="help-block">:message</span>') !!}
                     </div>

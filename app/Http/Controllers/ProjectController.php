@@ -47,7 +47,9 @@ class ProjectController extends Controller
         $id = Auth::user()->id;
         $currentuser = User::find($id);
 
-        $projects = Project::where('sat_id', $currentuser->sat_ruc)->get();
+        $projects = Project::where('sat_id', $currentuser->sat_ruc)
+        ->where('action','=',null)
+        ->get();
         //Mapper::map(-24.3697635, -56.5912129, ['zoom' => 6, 'type' => 'ROADMAP']);
         return view('projects.index',compact('projects','title'));
     }

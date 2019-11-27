@@ -14,8 +14,8 @@
 <div class="box box-primary">
     <div class="box-header with-border">
 
-        <div class="pull-right"><a href="{!! action('ActualizacionController@create') !!}" class="announce">
-            <button class="btn btn-primary" hr type="button"><i class="fa fa-fw fa-plus"></i> Crear Proyecto</button>
+        <div class="pull-right"><a  class="announce">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#modal-default"   type="button"><i class="fa fa-fw fa-plus"></i> Crear Proyecto</button>
         </a></div>
       </div>
     <!-- /.card-header -->
@@ -81,6 +81,33 @@
 </table>
     </div>
 
+  </div>
+
+  <div class="modal fade" id="modal-default" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span></button>
+          <h4 class="modal-title">Ingrese Número de Expediente</h4>
+        </div>
+        <div class="modal-body">
+            <form action="{{ action('ActualizacionController@create') }}" method="GET">
+                {{ csrf_field() }}
+                <div class="form-group {{ $errors->has('state_id') ? 'has-error' : '' }}">
+                    <input type="text" class="form-control" name="expediente"  value="">
+                    {!! $errors->first('state_id','<span class="help-block">:message</span>') !!}
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </div>
+            </form>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
   </div>
 
 @stop
