@@ -176,9 +176,10 @@ class ProjectController extends Controller
 
         $title = Document::find($request->title);
         //return $title->name;
-        $input['title'] = $title->name;
-        $input['project_id'] = $request->project_id;
-        $input['document_id'] = $request->title;
+        $input['per_page'] = $title->per_page;
+        $input['page'] = $request->page;
+        $input['orderBy'] = $request->page;
+        $input['orderDirection'] = $request->orderDirection;
         Documents::create($input);
 
         //return $input;
