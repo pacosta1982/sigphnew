@@ -52,7 +52,7 @@
     </div>
   </div>
   @if (!isset($project->getEstado->stage_id))
-
+  <button type="button" data-toggle="modal" data-id="{{ $project->id }}" data-title="{{ $project->name }}" data-target="#modal-enviar" class="btn btn-block btn-success btn-lg feed-id-proyecto"><i class="fa fa-send"></i> Enviar Proyecto al MUVH <i class="fa fa-send"></i></button>
   @else
   <a href="{!! action('PostulantesController@generatePDF', ['id'=>$project->id]) !!}"> <button type="button" class="btn btn-info btn-block btn-lg btn-lg">
         <i class="fa fa-file-excel-o"></i> Imprimir Listado
