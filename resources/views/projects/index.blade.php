@@ -15,7 +15,7 @@
     <div class="box-header with-border">
 
         <div class="pull-right"><a href="{!! action('ProjectController@create') !!}" class="announce">
-            <button class="btn btn-primary" hr type="button"><i class="fa fa-fw fa-plus"></i> Crear Proyecto</button>
+           <!-- <button class="btn btn-primary" hr type="button"><i class="fa fa-fw fa-plus"></i> Crear Proyecto</button>-->
         </a></div>
       </div>
     <!-- /.card-header -->
